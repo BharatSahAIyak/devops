@@ -9,12 +9,12 @@ services:
       VERCEL_TOKEN: ${DEPLOYER_VERCEL_TOKEN}
       PWA_REPO: ${DEPLOYER_PWA_REPO}
       APP_ENV: ${DEPLOYER_APP_ENV}
-      SELF_BASE_URL: ' ${DOMAIN_SCHEME:-https}://deployer.${DOMAIN_NAME}'
+      SELF_BASE_URL: ${DOMAIN_SCHEME:-https}://deployer.${DOMAIN_NAME}
       MINIO_BUCKETNAME: deployer
-      STORAGE_ENDPOINT: ' ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}'
+      STORAGE_ENDPOINT: ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}
       STORAGE_PORT: 443
       STORAGE_USE_SSL: 'true'
       STORAGE_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       STORAGE_SECRET_KEY: ${MINIO_SECRET_KEY}
       STORAGE_MODE: "minio"
-      AUTH_SERVICE_URL: http://auth-service:3000
+      AUTH_SERVICE_URL: http://auth_service:3000
