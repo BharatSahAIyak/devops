@@ -1,8 +1,6 @@
   services:
     autotune:
-      container_name: autotune
-      image: ${DOCKER_REGISTRY_URL}/${org}/autotune:${AUTOTUNE_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?IMAGE_TAG is not set}}
-      profiles: ['application']
+      image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/autotune:${AUTOTUNE_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
       restart: always
       mem_limit: ${AUTOTUNE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
       cpus: ${AUTOTUNE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
@@ -23,9 +21,7 @@
         GITHUB_PAT: ${GITHUB_PAT}
 
     autotune_celery_worker:
-      container_name: autotune-celery-worker
       image: ${DOCKER_REGISTRY_URL}/${org}/autotune:${AUTOTUNE_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?IMAGE_TAG is not set}}
-      profiles: ['application']
       restart: always
       mem_limit: ${AUTOTUNE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
       cpus: ${AUTOTUNE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
