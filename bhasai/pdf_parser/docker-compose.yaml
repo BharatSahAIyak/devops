@@ -18,10 +18,10 @@ services:
       WEBHOOK_URL: http://bff:3000/document/processed-webhook
       FASTAPI_HOST: http://pdf-parser:8000
       TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
-      MINIO_BASE_URL: "${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}"
+      MINIO_BASE_URL: ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-      MINIO_BUCKET: pdf-parser
+      MINIO_BUCKET: pdf_parser
       MINIO_SECURE_CONN: "True"
       ENABLE_TRANSLATE: ${ENABLE_TRANSLATE}
       ENABLE_SUMMARIZE: ${ENABLE_SUMMARIZE}
@@ -41,7 +41,7 @@ services:
       - redis
 
   pdf_parser_celery_worker:
-    image: ${DOCKER_REGISTRY_URL}/${org}/pdf-parser:${PDF_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/pdf-parser:${PDF_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: bash -c "./setup.sh && celery -A pdf_parser worker -P solo -l info"
     restart: always
     mem_limit: ${PDF_PARSER_CELERY_WORKER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
@@ -61,7 +61,7 @@ services:
       WEBHOOK_URL: http://bff:3000/document/processed-webhook
       FASTAPI_HOST: http://pdf-parser:8000
       TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
-      MINIO_BASE_URL: "${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}"
+      MINIO_BASE_URL: ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: pdf_parser
