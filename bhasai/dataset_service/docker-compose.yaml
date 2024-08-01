@@ -6,7 +6,7 @@ services:
     cpus: ${DATASET_SERVICE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
     environment: 
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/dataset_service"
-      MINIO_ENDPOINT: "cdn-api.${DOMAIN_NAME}"
+      MINIO_ENDPOINT: "${DOMAIN_SCHEME}://cdn-api.${DOMAIN_NAME}"
       MINIO_SECURE_CONN: "True"
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
