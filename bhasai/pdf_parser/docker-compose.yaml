@@ -16,7 +16,7 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       BHASHINI_API_KEY: ${BHASHINI_API_KEY}
       WEBHOOK_URL: http://bff:3000/document/processed-webhook
-      FASTAPI_HOST: http://pdf-parser:8000
+      FASTAPI_HOST: http://pdf_parser:8000
       TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
       MINIO_BASE_URL: ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
@@ -59,7 +59,7 @@ services:
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       BHASHINI_API_KEY: ${BHASHINI_API_KEY}
       WEBHOOK_URL: http://bff:3000/document/processed-webhook
-      FASTAPI_HOST: http://pdf-parser:8000
+      FASTAPI_HOST: http://pdf_parser:8000
       TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
       MINIO_BASE_URL: ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
