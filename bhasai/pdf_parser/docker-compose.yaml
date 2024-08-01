@@ -18,7 +18,7 @@ services:
       WEBHOOK_URL: http://bff:3000/document/processed-webhook
       FASTAPI_HOST: http://pdf-parser:8000
       TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
-      MINIO_BASE_URL: "cdn-api.${DOMAIN_NAME}"
+      MINIO_BASE_URL: "${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}"
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: pdf-parser
@@ -61,7 +61,7 @@ services:
       WEBHOOK_URL: http://bff:3000/document/processed-webhook
       FASTAPI_HOST: http://pdf-parser:8000
       TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
-      MINIO_BASE_URL: "cdn-api.${DOMAIN_NAME}"
+      MINIO_BASE_URL: "${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}"
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       MINIO_BUCKET: pdf-parser
