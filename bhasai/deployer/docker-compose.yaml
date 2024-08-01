@@ -11,7 +11,7 @@ services:
       APP_ENV: ${DEPLOYER_APP_ENV}
       SELF_BASE_URL: ' ${DOMAIN_SCHEME:-https}://deployer.${DOMAIN_NAME}'
       MINIO_BUCKETNAME: deployer
-      STORAGE_ENDPOINT: 'cdn-api.${DOMAIN_NAME}'
+      STORAGE_ENDPOINT: ' ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}'
       STORAGE_PORT: 443
       STORAGE_USE_SSL: 'true'
       STORAGE_ACCESS_KEY: ${MINIO_ACCESS_KEY}
