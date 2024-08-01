@@ -1,3 +1,3 @@
-{$DOMAIN_NAME}://telemetry.{$DOMAIN_NAME} {
+{$DOMAIN_SCHEME}://telemetry.{$DOMAIN_NAME} {
     reverse_proxy telemetry:3000
 }
