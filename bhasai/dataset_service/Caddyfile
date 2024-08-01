@@ -1,3 +1,3 @@
-{$DOMAIN_SCHEME}://dataset_service.{$DOMAIN_NAME} {
-    reverse_proxy dataset_service:3000
+{$DOMAIN_SCHEME}://dataset-service.{$DOMAIN_NAME} {
+    reverse_proxy dataset-service:3000
 }
