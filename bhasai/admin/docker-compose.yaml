@@ -1,8 +1,7 @@
 services:
   admin:
-    profiles: ["application"]
     build:
-      context: https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${org}/admin.git#${ADMIN_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH?GITHUB_BRANCH is not set}}
+      context: https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${org}/admin.git#${ADMIN_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH:?DEFAULT_GITHUB_BRANCH is not set}}
       args:
         NEXT_PUBLIC_UCI_API_URL:  ${DOMAIN_SCHEME:-https}://uci-apis.${DOMAIN_NAME}
         NEXT_PUBLIC_BFF_API_URL:  ${DOMAIN_SCHEME:-https}://bff.${DOMAIN_NAME}
