@@ -1,6 +1,6 @@
 services:
   yt_parser:
-    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/yt-parser:${YT_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/yt-parser:${YT_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: uvicorn main:app --host 0.0.0.0 --port 8000
     restart: always
     mem_limit: ${YT_PARSER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
@@ -25,7 +25,7 @@ services:
       - redis
 
   yt_parser_celery_worker:
-    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/yt-parser:${YT_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/yt-parser:${YT_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command:  celery -A worker worker -P gevent --loglevel=info   
     restart: always
     mem_limit: ${YT_PARSER_CELERY_WORKER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
