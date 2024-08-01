@@ -1,6 +1,6 @@
 services:
    uci_apis:
-    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/uci-apis:${UCI_APIS_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/uci-apis:${UCI_APIS_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     restart: always
     mem_limit: ${UCI_APIS_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${UCI_APIS_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
