@@ -17,4 +17,4 @@ services:
       STORAGE_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       STORAGE_SECRET_KEY: ${MINIO_SECRET_KEY}
       STORAGE_MODE: "minio"
-      AUTH_SERVICE_URL: http://auth_service:3000
+      AUTH_SERVICE_URL: http://auth-service:3000
