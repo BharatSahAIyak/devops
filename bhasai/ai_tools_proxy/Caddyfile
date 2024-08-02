@@ -1,3 +1,9 @@
 {$DOMAIN_SCHEME}://ai-tools-proxy.{$DOMAIN_NAME} {
-    reverse_proxy ai_tools_proxy:3000
+    
+    ls /certs/fullchain.pem /certs/privkey.pem 
+
+    handle_path /ai_tools_proxy* {
+        reverse_proxy ai_tools_proxy:3000
+    }
+
 }
