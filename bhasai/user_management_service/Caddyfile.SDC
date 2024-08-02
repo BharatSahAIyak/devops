@@ -2,7 +2,7 @@
 
     {$TLS_ENTRY}
 
-    handle_path /uci-apis* {
-        reverse_proxy uci_apis:3000
+    handle_path /user-management-service* {
+        reverse_proxy user_management_service:3000
     }
 }
