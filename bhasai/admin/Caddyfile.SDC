@@ -3,6 +3,6 @@
     {$TLS_ENTRY}
 
     handle_path /admin* {
-        reverse_proxy admi:3000
+        reverse_proxy admin:3000
     }
 }
