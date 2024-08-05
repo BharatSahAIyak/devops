@@ -6,7 +6,7 @@ services:
         NEXT_PUBLIC_BOT_ID: ${NEXT_PUBLIC_BOT_ID}
         NEXT_PUBLIC_CONFIG_BASE_URL: https://deployer.bhasai-dev.k8s.bhasai.samagra.io/deployment/config/74b41966-c74a-43e7-ba43-07f038893cb4
         NEXT_PUBLIC_BOT_NAME: ${NEXT_PUBLIC_BOT_NAME}
-        NEXT_PUBLIC_SOCKET_URL: ${DOMAIN_SCHEME:-https}://.${DOMAIN_NAME}/transport-socket
+        NEXT_PUBLIC_SOCKET_URL: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/transport-socket
         NEXT_PUBLIC_TELEMETRY_API: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/telemetry
         NEXT_PUBLIC_AI_TOOLS_API: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/ai-tools-proxy
         NEXT_PUBLIC_BFF_API_URL: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/bff
