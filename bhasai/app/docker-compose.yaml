@@ -1,0 +1,28 @@
+services:
+  app:
+    build:
+      context: https://github.com/RahatBot/app.git#${APP_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH:?DEFAULT_GITHUB_BRANCH is not set}}
+      args:
+        NEXT_PUBLIC_BOT_ID: ${NEXT_PUBLIC_BOT_ID}
+        NEXT_PUBLIC_CONFIG_BASE_URL: https://deployer.bhasai-dev.k8s.bhasai.samagra.io/deployment/config/74b41966-c74a-43e7-ba43-07f038893cb4
+        NEXT_PUBLIC_BOT_NAME: ${NEXT_PUBLIC_BOT_NAME}
+        NEXT_PUBLIC_SOCKET_URL: ${DOMAIN_SCHEME:-https}://transport-socket.${DOMAIN_NAME}
+        NEXT_PUBLIC_TELEMETRY_API: ${DOMAIN_SCHEME:-https}://telemetry.${DOMAIN_NAME}
+        NEXT_PUBLIC_AI_TOOLS_API: ${DOMAIN_SCHEME:-https}://ai-tools-proxy.${DOMAIN_NAME}
+        NEXT_PUBLIC_BFF_API_URL: ${DOMAIN_SCHEME:-https}://bff.${DOMAIN_NAME}
+        NEXT_PUBLIC_USER_SERVICE_APP_ID: ${NEXT_PUBLIC_USER_SERVICE_APP_ID}
+        NEXT_PUBLIC_JWKS_URI: 'https://fusionauth.k8s.bhasai.samagra.io/.well-known/jwks.json'
+        NEXT_PUBLIC_USER_SERVICE_URL: 'https://user.kmai-dev.k8s.bhasai.samagra.io/'
+        NEXT_PUBLIC_ORG_ID: ${NEXT_PUBLIC_ORG_ID}
+        NEXT_PUBLIC_DEBUG: ${NEXT_PUBLIC_DEBUG}
+        NEXT_PUBLIC_SOCKET_PATH: '/ts/socket.io'
+        NEXT_PUBLIC_GOOGLE_KEY: ${NEXT_PUBLIC_GOOGLE_KEY}
+        FUSIONAUTH_URL: ${DOMAIN_SCHEME:-https}://fusionauth.${DOMAIN_NAME}
+        FUSIONAUTH_KEY: ${FUSIONAUTH_KEY}
+        NEXT_PUBLIC_DATASET_URL: ${DOMAIN_SCHEME:-https}://dataset-service.${DOMAIN_NAME}
+        NEXT_PUBLIC_ENTITY_DATASET_ID: ${NEXT_PUBLIC_ENTITY_DATASET_ID}
+        NEXT_PUBLIC_CLARITY_PROJECT_ID: ${NEXT_PUBLIC_CLARITY_PROJECT_ID} 
+        NEXT_PUBLIC_SHOW_ONBOARDING: ${NEXT_PUBLIC_SHOW_ONBOARDING}
+        NEXT_PUBLIC_WEATHER_API: https://imd-api.dev.vistaar.samagra.io/advisory
+        NEXT_PUBLIC_TEXT_TO_SPEECH: 'https://rahatbot.upsdc.gov.in/ai-tools-proxy/text-to-speech'
+        NEXT_PUBLIC_SPEECH_TO_TEXT: 'https://rahatbot.upsdc.gov.in/ai-tools-proxy/speech-to-text'
