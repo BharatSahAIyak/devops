@@ -1,7 +1,7 @@
 services:
   app:
     build:
-      context: https://github.com/RahatBot/app.git#${APP_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH:?DEFAULT_GITHUB_BRANCH is not set}}
+      context: https://${GIT_USERNAME}:${GIT_PASSWORD}@github.com/${org}/kisai-bot.git#${APP_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH:?DEFAULT_GITHUB_BRANCH is not set}}
       args:
         NEXT_PUBLIC_BOT_ID: ${NEXT_PUBLIC_BOT_ID}
         NEXT_PUBLIC_CONFIG_BASE_URL: ${DOMAIN_SCHEME:-https}://deployer.${DOMAIN_NAME}/deployment/config/${NEXT_PUBLIC_BOT_ID}
