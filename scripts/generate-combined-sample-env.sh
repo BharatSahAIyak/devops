@@ -39,7 +39,7 @@ if [[ -s "$OUTPUT_FILE" ]]; then
   sort -u "$OUTPUT_FILE" -o "$OUTPUT_FILE"
   
   # Sort lines with '=' to the top and lines without '=' to the bottom
-  (grep '=' "$OUTPUT_FILE"; grep -v '=' "$OUTPUT_FILE") | tee "$OUTPUT_FILE" > /dev/null
+(grep '=' "$OUTPUT_FILE"; grep -v '=' "$OUTPUT_FILE") > temp_output && mv temp_output "$OUTPUT_FILE"
   
   echo "Environment variables have been extracted to $OUTPUT_FILE"
 else
