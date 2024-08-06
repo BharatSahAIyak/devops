@@ -1,19 +1,19 @@
 x-superset-environment: &superset-environment
   environment:
-      DATABASE_DB: ${DATABASE_DB}              
-      DATABASE_HOST: ${DATABASE_HOST}          
+      DATABASE_DB: superset              
+      DATABASE_HOST: db           
       DATABASE_PASSWORD: ${SUPERSET_DATABASE_PASSWORD:?SUPERSET_DATABASE_PASSWORD is not set}     
-      DATABASE_USER: ${DATABASE_USER}          
-      DATABASE_PORT: ${DATABASE_PORT}       
+      DATABASE_USER: superset           
+      DATABASE_PORT: 5432          
       DATABASE_DIALECT: postgresql  
       PYTHONPATH: "/app/pythonpath:/app/docker/pythonpath_dev"                 
       SUPERSET_ENV: ${SUPERSET_ENV:-production}                                 
       SECRET_KEY: ${SUPERSET_SECRET_KEY:?SUPERSET_SECRET_KEY is not set}                   
-      CYPRESS_CONFIG: ${CYPRESS_CONFIG}      
-      SUPERSET_PORT: ${SUPERSET_PORT}                            
-      SUPERSET_LOAD_EXAMPLES: ${SUPERSET_LOAD_EXAMPLES}
-      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is not set}
-      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set}
+      CYPRESS_CONFIG: false      
+      SUPERSET_PORT: 8088                            
+      SUPERSET_LOAD_EXAMPLES: no
+      POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is not set`}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set`}
       SUPERSET_ADMIN_PASSWORD: ${SUPERSET_ADMIN_PASSWORD:?SUPERSET_ADMIN_PASSWORD is not set`}
       SUPERSET_TALISMAN_ENABLED: ${SUPERSET_TALISMAN_ENABLED:-false}
       SUPERSET_EMBEDDING_DOMAIN: ${SUPERSET_EMBEDDING_DOMAIN:?SUPERSET_EMBEDDING_DOMAIN is not set}
@@ -39,7 +39,7 @@ volumes:
 
 services:
   superset:
-    image: ghcr.io/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
     user: "root"
     restart: always
@@ -53,13 +53,13 @@ services:
       - superset_worker_beat
 
   superset_init:
-    image: ghcr.io/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: ["/app/docker/docker-init.sh"]
     user: "root"
     <<: [*superset-environment ,*superset-depends-on, *superset-volumes]
 
   superset_worker:
-    image: ghcr.io/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
     restart: always
     user: "root"
@@ -73,7 +73,7 @@ services:
         ]
 
   superset_worker_beat:
-    image: ghcr.io/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: ["/app/docker/docker-bootstrap.sh", "beat"]
     restart: always
     user: "root"
