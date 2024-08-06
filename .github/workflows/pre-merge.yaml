@@ -17,7 +17,6 @@ jobs:
     - name: Run custom update script
       run: |
         ./scripts/generate-combined-sample-env.sh
-        ./scripts/generate-sample-env.sh
 
     - name: Commit changes
       run: |
