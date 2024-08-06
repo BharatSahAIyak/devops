@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Base directory to search for Docker Compose YAML files
-BASE_DIRECTORY="${1:-..}"
+BASE_DIRECTORIES=("${@}")
 
 # Output file
 OUTPUT_FILE="sample.env"
@@ -18,15 +18,18 @@ extract_env_vars() {
   grep -Ev '(MEM_LIMIT|CPU_LIMIT|IMAGE_TAG|GITHUB_BRANCH)$' >> "$OUTPUT_FILE"
 }
 
-# Check if the base directory exists
-if [[ ! -d "$BASE_DIRECTORY" ]]; then
-  echo "Directory $BASE_DIRECTORY does not exist."
-  exit 1
-fi
+# Iterate over each base directory
+for BASE_DIRECTORY in "${BASE_DIRECTORIES[@]}"; do
+  # Check if the base directory exists
+  if [[ ! -d "$BASE_DIRECTORY" ]]; then
+    echo "Directory $BASE_DIRECTORY does not exist."
+    continue
+  fi
 
-# Find all matching files in the base directory and its subdirectories
-find "$BASE_DIRECTORY" -type f -name 'docker-compose*yaml' | while read -r file; do
-  extract_env_vars "$file"
+  # Find all matching files in the base directory and its subdirectories
+  find "$BASE_DIRECTORY" -type f -name 'docker-compose*yaml' | while read -r file; do
+    extract_env_vars "$file"
+  done
 done
 
 # Check if OUTPUT_FILE has content
