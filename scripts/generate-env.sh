@@ -15,12 +15,21 @@ fi
 # Read the sample.env file line by line
 while IFS= read -r line; do
     # Check if the line contains the pattern "random-generate-"
-    if [[ $line == *"random-generate"* ]]; then
+    if [[ $line == *"random-generate-lower"* ]]; then
+        # Extract the variable name
+        variable_name=$(echo "$line" | cut -d '=' -f 1)
+        
+        # Generate a random value with the specified number of digits
+        random_value=$(tr -dc a-z0-9 </dev/urandom | head -c 30}; echo)
+
+        # Replace the line with the generated value
+        line="${variable_name}=${random_value}"
+    elif [[ $line == *"random-generate"* ]]; then
         # Extract the variable name
         variable_name=$(echo "$line" | cut -d '=' -f 1)
 
         # Generate a random value with the specified number of digits
-        random_value=$(openssl rand -hex 16)
+        random_value=$(tr -dc A-Za-z0-9 </dev/urandom | head -c 30; echo)
 
         # Replace the line with the generated value
         line="${variable_name}=${random_value}"
