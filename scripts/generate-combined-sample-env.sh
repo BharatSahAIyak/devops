@@ -36,7 +36,7 @@ done
 # Check if OUTPUT_FILE has content
 if [[ -s "$OUTPUT_FILE" ]]; then
   # Remove duplicate entries and sort
-  sort -u "$OUTPUT_FILE" -o "$OUTPUT_FILE"
+awk -F= '{if($2) {if(!seen[$1]++) print} else {if(!seen_empty[$1]++) empty[$1]=$0}} END {for (i in empty) if(!seen[i]) print empty[i]}' "$OUTPUT_FILE" > tmp && mv tmp "$OUTPUT_FILE"
   
   # Sort lines with '=' to the top and lines without '=' to the bottom
 (grep '=' "$OUTPUT_FILE"; grep -v '=' "$OUTPUT_FILE") > temp_output && mv temp_output "$OUTPUT_FILE"

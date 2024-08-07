@@ -39,6 +39,9 @@ pull:
 build:
 	$(DOCKER_COMPOSE_COMMAND) build ${services} 
 
+generate-env:
+	@./scripts/generate-env.sh
+
 git-pull: 
 	git pull
 
