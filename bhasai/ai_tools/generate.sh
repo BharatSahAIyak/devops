@@ -33,19 +33,34 @@ command -v jq >/dev/null || { echo "Error: jq is required but not found. Please 
 # Get the number of models from the config.json file
 count=$(echo "$AI_SERVICES" | jq -r '.models | length')
 ComposeFile="${directory}/docker-compose.yaml"
-Caddyfile="${directory}/docker-compose.yaml"
-CaddyfileSDC="${directory}/docker-compose.yaml"
+Caddyfile="${directory}/Caddyfile"
+CaddyfileSDC="${directory}/Caddyfile.SDC"
 
 # Generate docker-compose.yaml file
 printf "services:\n" > $ComposeFile
+
+printf '{$DOMAIN_SCHEME}://ai-tools.{$DOMAIN_NAME} {' > $Caddyfile
+printf "" > $CaddyfileSDC
 
 # Loop through each model
 for ((i=0; i<$count; i++)); do
     # Get model details from config.json
     serviceName=$(echo "$AI_SERVICES" | jq -r ".models[$i].serviceName")
+    apiBasePath=$(echo "$AI_SERVICES" | jq -r ".models[$i].apiBasePath")
+    containerPort=$(echo "$AI_SERVICES" | jq -r ".models[$i].containerPort")
     gpu=$(echo "$AI_SERVICES" | jq ".models[$i].gpu")
 
     containerImage="${DOCKER_REGISTRY_URL}/${GITHUB_REPOSITORY_URL}/${serviceName}:\${AI_TOOLS_IMAGE_TAG:-\${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}"
+
+    echo "handle_path /ai-tools/${apiBasePath}* {
+    reverse_proxy ${serviceName}:${containerPort}
+}" >> $CaddyfileSDC
+
+    echo "
+    handle_path /${apiBasePath}* {
+        reverse_proxy ${serviceName}:${containerPort}
+    }
+    " >> $Caddyfile
 
 
     # Get environment variables for the model
@@ -70,3 +85,4 @@ for ((i=0; i<$count; i++)); do
     printf "\n" >> $ComposeFile
     
 done
+printf "}" >> $Caddyfile
