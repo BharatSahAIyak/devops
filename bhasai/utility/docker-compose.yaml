@@ -6,3 +6,4 @@ services:
       org: ${org:-bharatsahaiyak}
       AI_SERVICES: ${AI_SERVICES:-'[]'}
       GRAFANA_DISCORD_WEBHOOK_URL: ${GRAFANA_DISCORD_WEBHOOK_URL:-https://}
+      WEBHOOK_PASSWORD: ${WEBHOOK_PASSWORD}
