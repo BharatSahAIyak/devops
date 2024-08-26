@@ -137,8 +137,8 @@ else
   fi
 
   # Clean up residual files
-  echo "Cleaning up unnecessary files"
-  sudo rm -rf $HOME/docker-volume-backup
+  # echo "Cleaning up unnecessary files"
+  # sudo rm -rf $HOME/docker-volume-backup
   ssh -i "$SSH_PRIVATE_KEY_FILE" "$TARGET_HOST_USER@$TARGET_HOST_ADDRESS" 'rm -rf $HOME/docker-volume-backup' > /dev/null 2>&1
 fi
 
