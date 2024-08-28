@@ -2,6 +2,9 @@ services:
   rabbitmq:
     image: rabbitmq:3-management
     restart: always
+    mem_limit: 512m
+    ports:
+      - 15672:15672
     volumes:
       - rabbitmq:/var/lib/rabbitmq
     environment:
