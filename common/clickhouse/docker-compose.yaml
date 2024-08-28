@@ -3,8 +3,8 @@ services:
     image: 'clickhouse/clickhouse-server:24.1.6'
     user: '101:101'
     hostname: clickhouse
-    mem_limit: '4096m'
-    cpus: '1'
+    mem_limit: ${CLICKHOUSE_MEM_LIMIT:-4096m}
+    cpus:  ${CLICKHOUSE_CPU_LIMIT:-1}
     restart: always
     ports:
       - 8123:8123
@@ -18,8 +18,8 @@ services:
   clickhouse_keeper:
     image: 'clickhouse/clickhouse-keeper:24.1.6'
     user: '101:101'
-    mem_limit: '4096m'
-    cpus: '1'
+    mem_limit:  ${CLICKHOUSE_MEM_LIMIT:-4096m}
+    cpus: ${CLICKHOUSE_CPU_LIMIT:-1}
     hostname: clickhouse-keeper
     restart: always
     volumes:
