@@ -3,9 +3,7 @@ volumes:
 
 services:
   vault:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: vault:1.13.3
     restart: always
     ports:
       - 8200:8200
