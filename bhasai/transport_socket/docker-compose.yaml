@@ -10,3 +10,6 @@ services:
       ADAPTER_URL: http://inboundjs:3000/inbound/bot
       DEBUG: ${TRANSPORT_SOCKET_DEBUG}
       SERVER_PORT: 3000
+      REDIS_DB: 1
+      REDIS_HOST: redis
+      REDIS_PORT: 6379
