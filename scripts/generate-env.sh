@@ -20,7 +20,7 @@ while IFS= read -r line; do
         variable_name=$(echo "$line" | cut -d '=' -f 1)
         
         # Generate a random value with the specified number of digits
-        random_value=$(tr -dc a-z0-9 </dev/urandom | head -c 30}; echo)
+        random_value=$(tr -dc a-z0-9 </dev/urandom | head -c 30; echo)
 
         # Replace the line with the generated value
         line="${variable_name}=${random_value}"
