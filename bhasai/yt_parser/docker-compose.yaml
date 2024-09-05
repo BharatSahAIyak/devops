@@ -9,7 +9,7 @@ services:
       MINIO_BASE_URL: "minio:9000"
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-      MINIO_BUCKET: yt_parser
+      MINIO_BUCKET: yt-parser
       MINIO_SECURE_CONN: "False"
       REDIS_CONN: redis://redis:6379/3
       CELERY_BROKER_URL: redis://redis:6379/3
