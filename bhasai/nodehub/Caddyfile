@@ -1,3 +1,3 @@
-{$DOMAIN_NAME}://nodehub.{$DOMAIN_NAME} {
+{$DOMAIN_SCHEME}://nodehub.{$DOMAIN_NAME} {
     reverse_proxy nodehub:3000
 }
