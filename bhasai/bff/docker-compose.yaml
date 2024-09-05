@@ -15,9 +15,9 @@ services:
       DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/bff?sslmode=disable&connect_timeout=100"
       MINIO_PDF_BUCKET: bff
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-      MINIO_ENDPOINT: ${DOMAIN_SCHEME:-https}://cdn-api.${DOMAIN_NAME}
-      MINIO_PORT: 443
-      MINIO_SECURE_CONN: "True"
+      MINIO_ENDPOINT: cdn-api.${DOMAIN_NAME}
+      MINIO_PORT: ${MINIO_PORT:-443}
+      MINIO_SECURE_CONN: ${MINIO_SECURE_CONN:-True}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
       OPENAI_API_KEY: ${OPENAI_API_KEY}
       PDF_PARSER_BASE_URL:  ${DOMAIN_SCHEME:-https}://pdf-parser.${DOMAIN_NAME}
