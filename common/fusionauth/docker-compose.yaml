@@ -55,6 +55,8 @@ services:
   fusionauth:
     image: fusionauth/fusionauth-app:1.49.2
     restart: always
+    ports:
+      - 9011:9011
     volumes:
       - ./kickstart:/usr/local/fusionauth/kickstart
     depends_on:
