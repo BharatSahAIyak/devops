@@ -14,4 +14,7 @@ services:
         NEXT_PUBLIC_FLOWISE_URL: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/flowise
         NEXT_PUBLIC_AUTOTUNE_API_URL: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/autotune
         SERVE_PATH: "/admin"
+    environment:
+      AI_TOOLS_API: ${DOMAIN_SCHEME:-https}://ai-tools-proxy.${DOMAIN_NAME}
+      INBOUND_API: ${DOMAIN_SCHEME:-https}://inboundjs.${DOMAIN_NAME}
     restart: always
