@@ -63,10 +63,6 @@ On Machine2
    `cd build-essential-packages`
 2. Install all the packages using *dpkg*:
    `sudo dpkg -i *.deb`
-3. If there are any missing dependencies, fix them by running:
-   `sudo apt-get install -f`
-
-If your system does not have internet access and you run apt-get install -f, it might not be able to fix the broken dependencies unless you have already downloaded the necessary packages and dependencies to your local cache or have them available in a local repository. In such cases, you would need to manually download the required packages and install them.
 
 4. Add the current user in docker group: 
 `usermod -aG docker ${USER}`
