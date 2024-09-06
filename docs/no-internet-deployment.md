@@ -1,16 +1,16 @@
 ## Assumptions:
 * Machine1 : Machine with _internet access_.
 * Machine2 : Machine with _no internet access_.
-* Key used to scp from Machine1 to Machine2 is named _key_
+* Key used to scp from Machine1 to Machine2 is named _sshPrivateKey_
 * It is assumed that you have set _ssh functionality_. So that you can ssh from Machine1 to Machine2.
-* < Public IP > : It is the public ip of the Machine2
-* In all scp command make sure to replace ubuntu or user with your Machine2's user.
+* PublicIP : It is the public ip of the Machine2
+* In all scp command make sure to replace user with your Machine2's user.
 
 ## For installing yq :
 On Machine1:
 
 1. `sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64`
-2. `scp -i "key" yq_linux_amd64 ubuntu@<Public IP>:/tmp/yq_linux_amd64`
+2. `scp -i "sshPrivateKey" yq_linux_amd64 user@<PublicIP>:/tmp/yq_linux_amd64`
 
 On Machine2
 
@@ -20,7 +20,7 @@ On Machine2
 
 ## For jq installation:
 1. `sudo wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64`
-2. `scp -i "key" jq_linux_amd64 ubuntu@<Public IP>:/tmp/jq_linux_amd64`
+2. `scp -i "sshPrivateKey" jq_linux_amd64 user@<PublicIP>:/tmp/jq_linux_amd64`
 
 On Machine2
 1. `sudo mv /tmp/jq_linux_amd64 /usr/bin/jq`
@@ -51,9 +51,9 @@ On Machine2
 **Step 2: Transfer the Packages to the Server**
 1. Use _scp_ to transfer the compressed file to your server (replace _user@server_ip:/path/to/destination_ with your server details):
 
-   `scp build-essential-packages.tar.gz user@<Public IP>:/path/to/destination`
+   `scp build-essential-packages.tar.gz user@<PublicIP>:/path/to/destination`
 2. SSH into your server and navigate to the destination directory:
-   * `ssh user@<Public IP>`
+   * `ssh user@<PublicIP>`
    * `cd /path/to/destination`
 3. Extract the compressed file:
    `tar -xzvf build-essential-packages.tar.gz`
@@ -111,12 +111,12 @@ If your system does not have internet access and you run apt-get install -f, it 
 ### Step 2: Transfer the Packages to the Server
 
 1. **Use *scp* to transfer the compressed file to your server:**
-   Replace *<user>@<Public IP>:~/path/to/destination* with your server details:
+   Replace *<user>@<PublicIP>:~/path/to/destination* with your server details:
 
-   `scp -i "key" docker-packages.tar.gz <user>@<Public IP>:~/path/to/destination`
+   `scp -i "sshPrivateKey" docker-packages.tar.gz <user>@<PublicIP>:~/path/to/destination`
 2. **SSH into your server and navigate to the destination directory:**
 
-   `ssh -i "key" <user>@<Public IP>`
+   `ssh -i "sshPrivateKey" <user>@<PublicIP>`
 
    `cd ~/path/to/destination`
 3. **Extract the compressed file:**
@@ -148,7 +148,7 @@ Save the pulled *hello-world* image as a tar file:
 * `docker save -o hello-world.tar hello-world`
 
 **3. Transfer the Image to the Offline Server**
-* `scp hello-world.tar user@<Public IP>:/path/to/save`
+* `scp hello-world.tar user@<PublicIP>:/path/to/save`
 
 **4. Load the Image on the Offline Server**
 * `docker load -i /path/to/save/hello-world.tar`
@@ -213,7 +213,7 @@ fi
 1. **Transfer the *nvidia_packages* Folder via *scp*:**
 
 
-   `scp -i "key" -r ~/nvidia_packages user@<Public IP>:/path/to/destination`
+   `scp -i "sshPrivateKey" -r ~/nvidia_packages user@<PublicIP>:/path/to/destination`
 
 ### Step 3: Install the Packages on the Offline Machine
 
@@ -251,7 +251,7 @@ Given that you already have the necessary template files (*hooks.json.template*,
 
    Transfer the *webhook* binary to the offline machine using *scp*:
 
-   `scp ~/webhook_setup/webhook user@<Public IP>:/path/to/destination`
+   `scp ~/webhook_setup/webhook user@<PublicIP>:/path/to/destination`
 
 ### Step 2: Install the *webhook* Binary on the Offline Machine
 
