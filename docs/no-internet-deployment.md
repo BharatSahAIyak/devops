@@ -30,7 +30,7 @@ On Machine2
 ## Installing build-essential :
 
 **Step 1: Download the Packages on a Machine with Internet Access**
-1. On a Machine1, update your package list: `sudo apt-get update`
+1. On Machine1, update your package list: `sudo apt-get update`
 2. Download the _build-essential_ package and its dependencies using _apt-get_ with the _--download-only_ option:
 
    `sudo apt-get install --download-only build-essential
