@@ -1,21 +1,28 @@
-## For installing yq :
+## Assumptions:
+* Machine1 : Machine with _internet access_.
+* Machine2 : Machine with _no internet access_.
+* Key used to scp from Machine1 to Machine2 is named _key_
+* It is assumed that you have set _ssh functionality_. So that you can ssh from Machine1 to Machine2.
+* < Public IP > : It is the public ip of the Machine2
+* In all scp command make sure to replace ubuntu or user with your Machine2's user.
 
-On machine with internet access(say Machine1):
+## For installing yq :
+On Machine1:
 
 1. `sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64`
 2. `scp -i "key" yq_linux_amd64 ubuntu@<Public IP>:/tmp/yq_linux_amd64`
 
-On machine with no internet access(say Machine2):
+On Machine2
 
 1. `sudo mv /tmp/yq_linux_amd64 /usr/bin/yq`
 2. `sudo chmod +x /usr/bin/yq`
 3. `yq --version`
 
-## For jq installation: (Not tested yet):
+## For jq installation:
 1. `sudo wget https://github.com/jqlang/jq/releases/download/jq-1.7.1/jq-linux-amd64`
-2. `cp -i "key" jq_linux_amd64 ubuntu@<Public IP>:/tmp/jq_linux_amd64`
+2. `scp -i "key" jq_linux_amd64 ubuntu@<Public IP>:/tmp/jq_linux_amd64`
 
-On machine with no internet access(say Machine2):
+On Machine2
 1. `sudo mv /tmp/jq_linux_amd64 /usr/bin/jq`
 2. `sudo chmod +x /usr/bin/jq`
 3. `jq --version`
@@ -23,32 +30,38 @@ On machine with no internet access(say Machine2):
 ## Installing build-essential :
 
 **Step 1: Download the Packages on a Machine with Internet Access**
-1. On a machine with internet access, update your package list: `sudo apt-get update`
-2. Download the `build-essential` package and its dependencies using `apt-get` with the `--download-only` option:
+1. On a Machine1, update your package list: `sudo apt-get update`
+2. Download the _build-essential_ package and its dependencies using _apt-get_ with the _--download-only_ option:
+
    `sudo apt-get install --download-only build-essential
    `
-   This will download all the necessary `.deb` files to your system's cache (usually in `/var/cache/apt/archives`).
-3. Collect the downloaded `.deb` files:
+
+   This will download all the necessary *.deb* files to your system's cache (usually in */var/cache/apt/archives*).
+3. Collect the downloaded *.deb_ files:
+
     * `mkdir -p ~/build-essential-packages`
     * `sudo cp /var/cache/apt/archives/*.deb ~/build-essential-packages/`
-   This will copy all the `.deb` files into the `~/build-essential-packages` directory.
-4. Compress the folder containing the `.deb` files to make it easier to transfer:
+
+   This will copy all the _.deb_ files into the *~/build-essential-packages_ directory.
+4. Compress the folder containing the *.deb* files to make it easier to transfer:
+
     `tar -czvf build-essential-packages.tar.gz -C ~/build-essential-packages .
    `
 
 **Step 2: Transfer the Packages to the Server**
-1. Use `scp` to transfer the compressed file to your server (replace `user@server_ip:/path/to/destination` with your server details):
-   `scp build-essential-packages.tar.gz user@server_ip:/path/to/destination`
+1. Use _scp_ to transfer the compressed file to your server (replace _user@server_ip:/path/to/destination_ with your server details):
+
+   `scp build-essential-packages.tar.gz user@<Public IP>:/path/to/destination`
 2. SSH into your server and navigate to the destination directory:
-   * `ssh user@server_ip`
+   * `ssh user@<Public IP>`
    * `cd /path/to/destination`
 3. Extract the compressed file:
    `tar -xzvf build-essential-packages.tar.gz`
 
 **Step 3: Install the Packages on the Server**
-1. Navigate to the directory containing the `.deb` files:
+1. Navigate to the directory containing the *.deb* files:
    `cd build-essential-packages`
-2. Install all the packages using `dpkg`:
+2. Install all the packages using *dpkg*:
    `sudo dpkg -i *.deb`
 3. If there are any missing dependencies, fix them by running:
    `sudo apt-get install -f`
@@ -62,8 +75,8 @@ If your system does not have internet access and you run apt-get install -f, it 
 
 **Overview :** 
 - **Download**: Use a machine with internet access to download Docker and its dependencies.
-- **Transfer**: Move the files to the server using `scp`.
-- **Install**: Use `dpkg` on the server to install the packages.
+- **Transfer**: Move the files to the server using *scp*.
+- **Install**: Use *dpkg* on the server to install the packages.
 
 ### Step 1: Download the Packages on a Machine with Internet Access**
 
@@ -86,60 +99,63 @@ If your system does not have internet access and you run apt-get install -f, it 
    sudo apt-get update
    ```
 3. **Download the Docker packages and their dependencies:**
+
    `mkdir -p ~/docker-packages`  
    `cd ~/docker-packages`  
-   `sudo apt-get download docker-ce docker-ce-cli containerd.io`    
-    `docker-buildx-plugin`  
-    `docker-compose-plugin`
+   `sudo apt-get download docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin`
     
-    This will download all the necessary `.deb` files into the `~/docker-packages` directory.
-4. **Compress the folder containing the `.deb` files for easy transfer:**
+    This will download all the necessary *.deb* files into the *~/docker-packages* directory.
+4. **Compress the folder containing the *.deb* files for easy transfer:**
    `tar -czvf docker-packages.tar.gz -C ~/ docker-packages`
 
 ### Step 2: Transfer the Packages to the Server
 
-1. **Use `scp` to transfer the compressed file to your server:**
-   Replace `<ubuntu-user>@<ubuntu-ip>:~/path/to/destination` with your server details:
-   `scp -i "/path/to/key" docker-packages.tar.gz <ubuntu-user>@<ubuntu-ip>:~/path/to/destination`
+1. **Use *scp* to transfer the compressed file to your server:**
+   Replace *<user>@<Public IP>:~/path/to/destination* with your server details:
+
+   `scp -i "key" docker-packages.tar.gz <user>@<Public IP>:~/path/to/destination`
 2. **SSH into your server and navigate to the destination directory:**
-   `ssh -i "/path/to/key" <ubuntu-user>@<ubuntu-ip>`
+
+   `ssh -i "key" <user>@<Public IP>`
+
    `cd ~/path/to/destination`
 3. **Extract the compressed file:**
    `tar -xzvf docker-packages.tar.gz`
 
 ### Step 3: Install the Docker Packages on the Server
 
-1. **Navigate to the directory containing the `.deb` files:**
+1. **Navigate to the directory containing the *.deb* files:**
    `cd docker-packages`
-2. **Install all the packages using `dpkg`:**
+2. **Install all the packages using *dpkg*:**
   `sudo dpkg -i *.deb`
   3. **Fix any missing dependencies:** (Requires Internet)
    `sudo apt-get install -f`
 
-   This will install any missing dependencies from the `.deb` files that are already present in the directory.
+   This will install any missing dependencies from the *.deb* files that are already present in the directory.
 
 
 ## How to Use a Docker Image Offline.
 
-## Overview :
-To use a Docker image offline, pull the `hello-world` image on a connected machine and save it as `hello-world.tar`. Transfer this file to the offline server, load it with `docker load -i hello-world.tar`, and then run it using `docker run hello-world`.
+### Overview :
+To use a Docker image offline, pull the *hello-world* image on a connected machine and save it as *hello-world.tar*. Transfer this file to the offline server, load it with *docker load -i hello-world.tar*, and then run it using *docker run hello-world*.
 
-**1. Pre-download the `hello-world` Image**
-* On a machine with internet access, pull the `hello-world` Docker image:
+**1. Pre-download the *hello-world* Image**
+* On a machine with internet access, pull the *hello-world* Docker image:
 `docker pull hello-world`
 
 **2. Save the Image**
-Save the pulled `hello-world` image as a tar file:
+Save the pulled *hello-world* image as a tar file:
 * `docker save -o hello-world.tar hello-world`
 
 **3. Transfer the Image to the Offline Server**
-* `scp hello-world.tar user@your-server:/path/to/save`
+* `scp hello-world.tar user@<Public IP>:/path/to/save`
 
 **4. Load the Image on the Offline Server**
 * `docker load -i /path/to/save/hello-world.tar`
 
 **5. Verify the Image**
-* `docker images` 
+* Type `docker images` 
+
 You should see the `hello-world` image listed.
 
 **6. Use the Image**
@@ -147,9 +163,9 @@ You should see the `hello-world` image listed.
 
 
 ## Installing GPU packages: 
-To download all the necessary NVIDIA CUDA drivers, toolkit, and Docker-related packages into a separate folder named `nvidia_packages` on the machine with internet access, you can use the following script:
+To download all the necessary NVIDIA CUDA drivers, toolkit, and Docker-related packages into a separate folder named *nvidia_packages* on the machine with internet access, you can use the following script:
 
-### Step 1: Download the Packages to `nvidia_packages` Folder
+### Step 1: Download the Packages to *nvidia_packages* Folder
 
 ```bash
 #!/bin/bash
@@ -192,21 +208,23 @@ fi
 
 ```
 
-### Step 2: Transfer the `nvidia_packages` Folder
+### Step 2: Transfer the *nvidia_packages* Folder
 
-1. **Transfer the `nvidia_packages` Folder via `scp`:**
+1. **Transfer the *nvidia_packages* Folder via *scp*:**
 
 
-   `scp -i "key" -r ~/nvidia_packages user@offline-machine:/path/to/destination`
+   `scp -i "key" -r ~/nvidia_packages user@<Public IP>:/path/to/destination`
 
 ### Step 3: Install the Packages on the Offline Machine
 
 1. **Install the Packages on the Offline Machine:**
 
-   On the offline machine, navigate to the directory where you transferred the `nvidia_packages` folder and install all the `.deb` packages:
+   On the offline machine, navigate to the directory where you transferred the *nvidia_packages* folder and install all the *.deb* packages:
 
    `cd /path/to/destination/nvidia_packages`
+
    `sudo dpkg -i *.deb`
+
    `sudo apt-get install -f`
 
 2. **Restart the machine**
@@ -214,13 +232,13 @@ fi
 
 ## Setting up Webhook : 
 
-Given that you already have the necessary template files (`hooks.json.template`, `webhook.service.template`) and the `.env` file on the offline machine, the primary task is to install the `webhook` binary and then run your setup script. Here’s how to proceed:
+Given that you already have the necessary template files (*hooks.json.template*, *webhook.service.template*) and the *.env* file on the offline machine, the primary task is to install the *webhook* binary and then run your setup script. Here’s how to proceed:
 
-### Step 1: Prepare the `webhook` Binary on the Internet-Connected Machine
+### Step 1: Prepare the *webhook* Binary on the Internet-Connected Machine
 
 1. **Download the Webhook Binary:**
 
-   On the machine with internet access, download the `webhook` binary:
+   On the machine with internet access, download the *webhook* binary:
 
    ```bash
    mkdir -p ~/webhook_setup
@@ -231,37 +249,36 @@ Given that you already have the necessary template files (`hooks.json.template`,
 
 2. **Transfer the Binary to the Offline Machine:**
 
-   Transfer the `webhook` binary to the offline machine using `scp`:
+   Transfer the *webhook* binary to the offline machine using *scp*:
 
-   ```bash
-   scp ~/webhook_setup/webhook user@offline-machine:/path/to/destination
-   ```
+   `scp ~/webhook_setup/webhook user@<Public IP>:/path/to/destination`
 
-### Step 2: Install the `webhook` Binary on the Offline Machine
+### Step 2: Install the *webhook* Binary on the Offline Machine
 
-1. **Move the Binary to `/usr/local/bin`:**
+1. **Move the Binary to */usr/local/bin*:**
 
-   On the offline machine, move the `webhook` binary to `/usr/local/bin` and make it executable:
+   On the offline machine, move the *webhook* binary to */usr/local/bin* and make it executable:
 
-   ```bash
-   sudo mv /path/to/destination/webhook /usr/local/bin/
-   sudo chmod +x /usr/local/bin/webhook
-   ```
+   `sudo mv /path/to/destination/webhook /usr/local/bin/`
+
+   `sudo chmod +x /usr/local/bin/webhook`
+
 
 ### Step 3: Run the Setup Script on the Offline Machine
 
-1. **Ensure the `.env` File is Correct:**
+1. **Ensure the *.env* File is Correct:**
 
-   Verify that your `.env` file has the correct values for `WEBHOOK_PASSWORD`, `WEBHOOK_USER`, and `WEBHOOK_GROUP`.
+   Verify that your *.env* file has the correct values for *WEBHOOK_PASSWORD*, *WEBHOOK_USER*, and *WEBHOOK_GROUP*.
 
 2. **Run the Setup Script:**
 
    Navigate to the directory where your setup script is located and run it:
 
-   ```bash
-   cd /path/to/setup_script
-   ./setup_webhook.sh
-   ```
+
+   `cd /path/to/setup_script` 
+
+   `./setup_webhook.sh`
+
 
 ### Step 4: Verify the Setup
 
@@ -269,6 +286,5 @@ Given that you already have the necessary template files (`hooks.json.template`,
 
    After running the setup script, ensure that the webhook service is running:
 
-   ```bash
-   sudo systemctl status webhook.service
-   ```
+
+   `sudo systemctl status webhook.service`
