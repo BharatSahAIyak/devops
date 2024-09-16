@@ -18,3 +18,4 @@ services:
       STORAGE_SECRET_KEY: ${MINIO_SECRET_KEY}
       STORAGE_MODE: "minio"
       AUTH_SERVICE_URL: http://auth_service:3000
+      VERCEL_ENV_CONFIG: ${VERCEL_ENV_CONFIG}
