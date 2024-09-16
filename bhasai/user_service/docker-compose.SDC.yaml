@@ -18,7 +18,7 @@ services:
       - GUPSHUP_USERNAME=${GUPSHUP_USERNAME}
       - OTP_EXPIRY=${OTP_EXPIRY:-30}
       - APP_${FUSIONAUTH_APP_ID}="{"host":"http://fusionauth:9011","salt":"${FUSIONAUTH_SALT}","apiKey":"${FUSIONAUTH_API_KEY}","encryption":{"enabled":false}}"
-      - RAJAI_BASEURL="https://rajkisan.rajasthan.gov.in/Service/ChatBotAppService",
+      - RAJAI_BASEURL="https://rajkisan.rajasthan.gov.in/Service/ChatBotAppService"
       - RAJAI_PASSWORD=${RAJAI_PASSWORD}
       - RAJAI_USERNAME=${RAJAI_USERNAME}
       - SMS_ADAPTER_TYPE=${SMS_ADAPTER_TYPE}
