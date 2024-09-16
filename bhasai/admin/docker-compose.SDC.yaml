@@ -5,7 +5,7 @@ services:
       args:
         NEXT_PUBLIC_UCI_API_URL:  ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/uci-apis
         NEXT_PUBLIC_BFF_API_URL:  ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/bff
-        NEXT_PUBLIC_SOCKET_URL:  ${DOMAIN_SCHEME:-https}://{DOMAIN_NAME}/transport-socket
+        NEXT_PUBLIC_SOCKET_URL:  ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/transport-socket
         NEXT_PUBLIC_AUTH_SERVICE_URL:  ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/auth-service
         NEXT_PUBLIC_DATASET_SERVICE_URL:  ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/dataset-service
         NEXT_PUBLIC_DOC_SERVICE_URL:  ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/document-service
