@@ -17,3 +17,4 @@ import ./yt_parser/Caddyfile
 import ./ai_tools/Caddyfile
 import ./provider_reverse_proxy/Caddyfile
 import ./pdf_generator/Caddyfile
+import ./excel_parser/Caddyfile
