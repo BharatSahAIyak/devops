@@ -1,0 +1,4 @@
+services:
+  provider_reverse_proxy:
+    image: ghcr.io/vistaar-org/provider-reverse-proxy:main
+    restart: always
