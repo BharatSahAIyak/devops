@@ -21,3 +21,5 @@ include:
   - ./app/docker-compose.SDC.yaml
   - ./user_service/docker-compose.SDC.yaml
   - ./ai_tools/docker-compose.yaml
+  - ./provider_reverse_proxy/docker-compose.SDC.yaml
+  - ./pdf_generator/docker-compose.SDC.yaml
