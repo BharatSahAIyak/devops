@@ -17,3 +17,4 @@ services:
       VAULT_USERNAME: ${VAULT_USERNAME}
       VAULT_PASSWORD: ${VAULT_PASSWORD}
       AUTH_SERVICE_URL: http://auth_service:3000
+      UCI_CORE_BASE_URL: http://inboundjs:3000
