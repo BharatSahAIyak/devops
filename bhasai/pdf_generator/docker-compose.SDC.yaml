@@ -1,6 +1,7 @@
 services:
   pdf_generator:
     image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/pdf-generator:${PDF_GENERATOR_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    restart: always
     environment:
       MINIO_PDF_BUCKET: bff
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}

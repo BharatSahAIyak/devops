@@ -18,3 +18,5 @@ import ./flowise/Caddyfile.SDC
 import ./app/Caddyfile.SDC
 import ./user_service/Caddyfile.SDC
 import ./ai_tools/Caddyfile.SDC
+import ./provider_reverse_proxy/Caddyfile.SDC
+import ./pdf_generator/Caddyfile.SDC
