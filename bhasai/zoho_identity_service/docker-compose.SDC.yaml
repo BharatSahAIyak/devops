@@ -11,3 +11,5 @@ services:
       REDIS_DB: 10
       REDIS_HOST: redis
       REDIS_PORT: 6379
+      USER_MANAGMENT_SERVICE_BASE_URL: http://user_management_service:3000
+      SEGMENT_ID: ${SEGMENT_ID}
