@@ -35,6 +35,8 @@ services:
       PDF_PARSER_SECRET_KEY : ${PDF_PARSER_SECRET_KEY}
       AZURE_TRANSLATE_KEY : ${AZURE_TRANSLATE_KEY}
       TRANSLATION_SERVICES : ${TRANSLATION_SERVICES:-["azure", "bhasini"]}
+      WEBHOOK_URL: http://bff:3000/document/processed-webhook
+      FASTAPI_HOST: http://pdf-parser:8000
     depends_on:
       - redis
 
