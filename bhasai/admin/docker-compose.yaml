@@ -13,6 +13,9 @@ services:
         NEXT_PUBLIC_TELEMETRY_API_URL:  ${DOMAIN_SCHEME:-https}://telemetry.${DOMAIN_NAME}
         NEXT_PUBLIC_FLOWISE_URL: ${DOMAIN_SCHEME:-https}://flowise.${DOMAIN_NAME}
         NEXT_PUBLIC_AUTOTUNE_API_URL: ${DOMAIN_SCHEME:-https}://autotune.${DOMAIN_NAME}
+        NEXT_PUBLIC_DIAGNOSIS_SUPERSET_URL: ${NEXT_PUBLIC_DIAGNOSIS_SUPERSET_URL}
+        NEXT_PUBLIC_TESTBED_URL: ${DOMAIN_SCHEME:-https}://testbed.${DOMAIN_NAME}
+        NEXT_PUBLIC_NODEHUB_URL: ${DOMAIN_SCHEME:-https}://nodehub.${DOMAIN_NAME
         SERVE_PATH: ""
     environment:
       AI_TOOLS_API: ${DOMAIN_SCHEME:-https}://ai-tools-proxy.${DOMAIN_NAME}
