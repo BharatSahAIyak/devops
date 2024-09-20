@@ -24,4 +24,3 @@ include:
   - ./provider_reverse_proxy/docker-compose.SDC.yaml
   - ./pdf_generator/docker-compose.SDC.yaml
   - ./excel_parser/docker-compose.SDC.yaml
-  - ./zoho_identity_service/docker-compose.SDC.yaml
