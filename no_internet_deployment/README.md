@@ -10,8 +10,8 @@
 
 
 Documentations
-1. [Installing_yq](./installing_yq.md)
-2. [Installing_jq](./installing_jq.md)
-3. [Installing_Build_Essentials](./installing_build_essentials.md)
-4. [Installing_Docker_Packages](./installing_docker_packages.md)
-5. [Loading_docker_images](./loading_docker_images.md)
+1. [Installing yq](./installing_yq.md)
+2. [Installing jq](./installing_jq.md)
+3. [Installing Build-Essentials](./installing_build_essentials.md)
+4. [Installing Docker](./installing_docker_packages.md)
+5. [Loading Docker-images](./loading_docker_images.md)
