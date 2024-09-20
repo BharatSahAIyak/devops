@@ -17,3 +17,4 @@ Documentations
 3. [Installing Build-Essentials](./installing_build_essentials.md)
 4. [Installing Docker](./installing_docker_packages.md)
 5. [Loading Docker-images](./loading_docker_images.md)
+6. [Installing GPU-Drivers](./installing_gpu_drivers.md)
