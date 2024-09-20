@@ -4,7 +4,9 @@
 
 
 # Prerequisites
-- Ensure that the OS configurations on the internet-connected machine(Machine1) match those on the offline machine for deployment(Machine2)
+- Ensure that the OS configurations on the internet-connected machine(Machine1) match those on the offline machine for deployment(Machine2) by running the following commands.
+- `uname -a`
+- `cat /etc/os-release`
 - It is advisable to set up a new Machine1 to prevent configuration mismatches.
 - After setting up both machines, add Machine1’s SSH public key to the `authorized_keys` file on Machine2
 
