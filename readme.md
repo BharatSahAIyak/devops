@@ -1,70 +1,129 @@
-# What?
+# Requirements
 
-This repository helps you with end to end setup of commonly required services for any project in a quick way (< 1 hr) and at the same time provides you with a standard way to add new services specific to your project.
+### Hardware Requirements
 
- Common services are as follows:
+- Ram (>56 GB)
+- GPU (>16 GB) - Nvidia Based 
+- CPU (>8 Core)
+- Disk IOPS (>5000)
 
-1. [Loki](https://github.com/grafana/loki) - database to store logs
-2. [Prometheus](https://github.com/prometheus/prometheus) - time series database to store different metrics
-3. [Minio](https://github.com/minio/minio) - s3 compatible object storage (e.g., it is used by loki to store old logs)
-4. [Grafana](https://github.com/grafana/grafana) - data visualisation platform (e.g., logs can be viewed here)
-5.  [Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) - used to push local logs to loki
-6. [Cadvisor](https://github.com/google/cadvisor) - exposes container metrics
-7. [Node Exporter](https://github.com/prometheus/node_exporter) - exposes node metrics
-8. [Vault](https://github.com/hashicorp/vault) - used for secrets management
-9. [Webhook Server](https://github.com/adnanh/webhook) - used to enable cd through an API
-10. [Caddy](https://github.com/caddyserver/caddy) - used to expose services to end users
-11. [Uptime](https://github.com/louislam/uptime-kuma) - used to monitor services
+### OS Requirements
 
-# Why?
+- Ubuntu 22.04 LTS
 
-In general every project requires observability, ci/cd pipelines, environment management, etc and these things don't change from project to project. This repository helps standardise setup of these so that separate effort on each project can be minimised.
+### Network Requirements
 
-# How?
+- 80, 443 (exposing services, port 80 is needed to be able to auto generate certificates)
+- 9000 (webhook server)
+- 22 (ssh) - if public ssh access is needed
 
-## Assumptions
+### Domain Requirements
 
-1. A VM with Ubuntu 22.04 (sudo access will be required)
-2. A wildcard domain mapped to the above VM (if you want to expose service publicly) - e.g. `*.mydomain.com`
-3. Allow public inbound traffic on port 80 and Port 443 on the above VM (if you want to expose service publicly)
-4. Allow public inbound traffic on port 9000 (if you want to expose deployment webhook publicly)
-5. Run `sudo apt-get install build-essential` to install essential packages
-6. Run `sudo wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -O /usr/bin/yq &&
-    sudo chmod +x /usr/bin/yq` to install [yq](https://github.com/mikefarah/yq)
-   
-## Setting up services on VM
+- A wildcard domain mapped to the machine (example *.example.com mapped to machine ip)
 
-1. Create a fork of this repository
-2. Clone the forked repository in the VM
-3. Create a copy of [sample.env](./common/sample.env) file (`cp common/sample.env .env`)
-4. **Update the environment variables in the .env file as required**
-5. Create a copy of example docker-compose file (`cp docker-compose.yaml.example docker-compose.yaml`)
-6. Create a copy of example Caddyfile (`cp Caddyfile.example Caddyfile`)
-7. Run `make install-docker` to install docker
-8. Exit out of VM and re-connect to the VM to reflect the latest user changes
-9. Run `make setup-daemon` to configure the docker daemon
-10. Run `sudo make setup-webhook` to start the webhook service (use `kill -9 $(lsof -t -i:9000)` to kill any existing service on 9000 port)
-11. Run `make deploy` to deploy all the services
+### Required Credentials
 
-## Setting up Github Action for CD
+- Image Registry (username and password) - to pull images of services
+- Github Repository Read Credentials (username and password) - to pull code of services (where service is built on machine, e.g., app)
+- Other API Credentials depending upon functionalities (OpenAI API Key, Gupshup Credentials, BHASHINI Credentials, Azure Translate Credentials)
 
-1. Go to *Actions* tab in the repo and enable actions
-2. Add `{Environment}_WEBHOOK_PASSWORD` and `{Environment}_WEBHOOK_URL` as repository secrets (the `Environment` here should be in uppercase letters and can be any name that you want to give to environment e.g., DEV)
+# Stack
 
-## Deploying services using Github Action
+### Database 
+- Postgres, Redis, Clickhouse, 
+- Prometheus (Time Series Databas for Metrics)
+- Loki (Logs Storage)
+- Minio (Object Storage)
+- Vault (Credential Storage)
 
-1. Go the *Actions* tab and open *Deploy Service* Action from the left bar
-2. Click on *Run workflow* and provide environment (this should be same as you used while setting up Action) and the service name you want to deploy
+### Dashboarding/Analytics 
+- Grafana, Superset
 
-## Viewing Webhook Service (used for CD) Logs
-- Run `sudo journalctl -u webhook.service` to view logs
+### Authentication Management 
+- FusionAuth
+
+### Alerts Managament 
+- Uptime
+
+### Exporters
+- Node Metrics (nodeexporter)
+- Container Metrics (Cadvisor)
+- Logs (Promtail) 
+
+## Proxy 
+- Caddy
+
+# Setup
+
+### System Setup
+
+1. Run `sudo apt-get install build-essential` to install pre-requisites
+2. Clone this repository in the VM and change directory to cloned repository
+3. Run `make install-docker` to install docker
+4. Exit out of VM and re-connect to the VM to reflect the latest user changes
+5. Run `make setup-daemon` to configure the docker daemon
+7. Run `make install-gpu-drivers` to install gpu drivers (ensure secure boot is turned off, restart the machine to ensure gpu drivers function properly)
+
+### Services Setup
+
+1. Use `docker login ghcr.io` to login into registry
+2. Update sample.env and add random-generate in front of all variables you want to generate randomly and random-generate-lower in front of all variables you want to generate randomly but only in lowercase
+3. Run `make generate-env` to generate a .env file with randomly filled values for variable you requested for in step 2
+
+Format for AI_SERVICES environment variable is as follows ([services](https://github.com/BharatSahAIyak/ai-tools/blob/dev/config.json) can be found here)
+
+```
+AI_SERVICES='{
+    "models": [
+      {
+        "serviceName": "bge_reranker",
+        "apiBasePath": "rerankers/bge_base/local/",
+        "containerPort": 8000,
+        "environment": {
+          "NVIDIA_VISIBLE_DEVICES": "${NVIDIA_VISIBLE_DEVICES}"
+        },
+        "gpu": false
+      }
+    ]
+  }'
+```
+4. Update other environment variables in .env file
+4. Run `make deploy` to deploy the system 
+
+### Setup Webhook Service
+
+1. Run `sudo make setup-webhook` to start the webhook service (use kill -9 $(lsof -t -i:9000) to kill any existing service on 9000 port)
+
+### Setting up FA Application for Bot
+
+1. Create an Application in Fusionauth (Enable JWT, set access token expiry to 2592000, set access token signing key to auto generate)
+
+### Setting up Github Action for CD
+
+1. Go to Actions tab in the repo and enable actions
+2. Add {Environment}_WEBHOOK_PASSWORD and {Environment}_WEBHOOK_URL as repository secrets (the Environment here should be in uppercase letters and can be any name that you want to give to environment e.g., DEV)
+
+# Maintenance and Debugging
+
+### Maintaining Servies
+
+1. Grafana can be used to view logs
+2. Environments variables can be updated through Vault
+3. A github action can be used to redeploy services directly through Github
+
+### Observability
+
+1. Alerts related to node and containers can be sent to discord channel by providing DISCORD_WEBHOOK_URL in .env
+2. Uptime can be used to configure alerts externally on any URL (multiple channels can be configured depending upon preference)
 
 
-## Developer Documentaion
+### Upgrading Services 
 
-1. [Onboarding a service](./docs/onboarding.md) 
+Every custom services (built by BHASAI Team) in docker-compose.yaml has variables defined to update image tag/ memory limit, cpus etc.
 
-## Useful Commands 
+Example. If you want to upgrade a specific service x_y to  a newer image tag, you can update the variable X_Y_IMAGE_TAG in vault and redeploy it using github actions 
+
+### Useful Commands 
 
 1. Deploy a newly added service or pull and redeploy a service
 
@@ -90,7 +149,7 @@ In general every project requires observability, ci/cd pipelines, environment ma
 7. Build images
     `make build [services=<service_name>]`
 
-## Useful Utilities
+### Useful Utilities
 
 1. Migrate Volume from localhost to localhost/remote 
 
