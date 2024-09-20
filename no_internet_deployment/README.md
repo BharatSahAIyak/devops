@@ -1,12 +1,12 @@
-# Asumptions Made
-- Machine1: Machine having internet on which we will download packages
-- Machine2: Machine without internet on which we will transfer and install packages
+# Assumptions
+- Machine1: The machine with internet access, which will be used to download packages.
+- Machine2: he machine without internet access, to which packages will be transferred and installed.
 
 
-# Prerequisite
+# Prerequisites
 - Ensure that the OS configurations on the internet-connected machine(Machine1) match those on the offline machine for deployment(Machine2)
 - It is advisable to set up a new Machine1 to prevent configuration mismatches.
-- After setting up both machines, add Machine1’s SSH public key to the authorized_keys file on Machine2
+- After setting up both machines, add Machine1’s SSH public key to the `authorized_keys` file on Machine2
 
 
 Documentations
