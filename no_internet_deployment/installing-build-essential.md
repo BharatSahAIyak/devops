@@ -17,3 +17,11 @@
 - `cd ~/build-essential-packages`
 - `tar -xzvf build-essential-packages.tar.gz`
 - `sudo dpkg -i *.deb`
+- To verify `dpkg -l | grep build-essential` <br>
+  If you get an 'ii' that means package is installed and configured correctly, and if its "iu" this means package is installed but not configured
+- Also check 
+   ```
+   gcc --version
+   g++ --version
+   make --version
+   ```

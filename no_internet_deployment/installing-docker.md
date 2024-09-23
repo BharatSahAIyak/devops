@@ -33,3 +33,4 @@
 - `cd ~/docker-packages`
 - `tar -xzvf docker-packages.tar.gz`
 - `sudo dpkg -i *.deb`
+- Verfiy using `docker --version`
