@@ -20,6 +20,3 @@
 - Verify using `docker images`
 - `cd ~/devops`
 - Deplpy using `DISABLE_PULL=1 SDC=1 make deploy services=service-name`
-
-
-

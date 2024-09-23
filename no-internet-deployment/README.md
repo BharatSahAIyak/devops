@@ -18,3 +18,4 @@ Documentations
 4. [Installing Docker](./installing-docker-packages.md)
 5. [Loading Docker-images](./loading-docker-images.md)
 6. [Installing GPU-Drivers](./installing-gpu-drivers.md)
+7. [building-service-images](./building-service-images.md)
