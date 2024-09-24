@@ -1,0 +1,13 @@
+services:
+  excel_parser:
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/excel-parser:${EXCEL_PARSER_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    command: bash -c "python manage.py makemigrations && python manage.py migrate && python manage.py runserver 0.0.0.0:8000"
+    restart: always
+    mem_limit: ${EXCEL_PARSER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
+    cpus: ${EXCEL_PARSER_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    environment:
+      MINIO_BUCKET: excel-parser
+      MINIO_BASE_URL: "minio:9000"
+      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
+      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
+      MINIO_SECURE_CONN: "False"

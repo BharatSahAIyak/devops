@@ -18,3 +18,6 @@ include:
   - ./vault/docker-compose.yaml
   - ./yt_parser/docker-compose.yaml
   - ./ai_tools/docker-compose.yaml
+  - ./provider_reverse_proxy/docker-compose.yaml
+  - ./pdf_generator/docker-compose.yaml
+  - ./excel_parser/docker-compose.yaml
