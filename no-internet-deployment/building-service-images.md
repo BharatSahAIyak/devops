@@ -7,7 +7,7 @@
 - Uncomment ` - ./bhasai/docker-compose.SDC.yaml` from `./docker-compose.SDC.yaml`
 - Comment out `- ./ai_tools/docker-compose.yaml` in `docker-compose.SDC.yaml`
 - cd `~/devops`
-- `SDC=1 make deploy services=admin`
+- `SDC=1 make deploy services=service_name`
 - `docker save -o your_image_name.tar your-image-name`
   Replace your-image-name with the name of the `image:tag`
 - `ssh user@<PublicIP> "mkdir -p ~/docker-images`
