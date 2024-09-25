@@ -6,18 +6,8 @@
       cpus: ${AUTOTUNE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
       command: bash -c "poetry install && python manage.py database && python manage.py runserver 0.0.0.0:8000"
       environment:
-        DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/autotune"
-        REDIS_URL: redis://redis:6379/7
-        OPENAI_API_KEY: ${OPENAI_API_KEY}
-        MINIO_BASE_URL: "cdn-api.${DOMAIN_NAME}"
-        MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-        MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-        MINIO_BUCKET: autotune
-        MINIO_SECURE_CONN: ${MINIO_SECURE_CONN:-True}
         CELERY_MAX_RETRIES: ${CELERY_MAX_RETRIES:-3}
         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-        HUGGING_FACE_USERNAME: ${HUGGING_FACE_USERNAME}
-        HUGGING_FACE_TOKEN: ${HUGGING_FACE_TOKEN}
         GITHUB_PAT: ${GITHUB_PAT}
 
     autotune_celery_worker:
@@ -34,16 +24,6 @@
                 count: 1
                 capabilities: [gpu]
       environment:
-        DATABASE_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/autotune"
-        REDIS_URL: redis://redis:6379/7
-        OPENAI_API_KEY: ${OPENAI_API_KEY}
-        MINIO_BASE_URL: "cdn-api.${DOMAIN_NAME}"
-        MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-        MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-        MINIO_BUCKET: autotune
-        MINIO_SECURE_CONN: ${MINIO_SECURE_CONN:-True}
         CELERY_MAX_RETRIES: ${CELERY_MAX_RETRIES:-3}
         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
-        HUGGING_FACE_USERNAME: ${HUGGING_FACE_USERNAME}
-        HUGGING_FACE_TOKEN: ${HUGGING_FACE_TOKEN}
         GITHUB_PAT: ${GITHUB_PAT} 
