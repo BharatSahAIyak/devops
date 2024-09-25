@@ -9,6 +9,8 @@ services:
       interval: 5s
       timeout: 5s
       retries: 5
+    env_file:
+      - ../../global.env
     environment:
       POSTGRES_USER: ${POSTGRES_USER:?POSTGRES_USER is not set}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?POSTGRES_PASSWORD is not set}

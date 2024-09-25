@@ -6,6 +6,8 @@ services:
   fusionauth_db:
     image: postgres:12.9
     restart: always
+    env_file:
+      - ../../global.env
     environment:
       PGDATA: /var/lib/postgresql/data/pgdata
       POSTGRES_USER: ${FUSIONAUTH_POSTGRES_ROOT_USERNAME:?FUSIONAUTH_POSTGRES_ROOT_USERNAME is not set}
@@ -22,6 +24,8 @@ services:
   fusionauth-es:
     image: docker.elastic.co/elasticsearch/elasticsearch:7.17.0
     mem_limit: '2560m'
+    env_file:
+      - ../../global.env
     environment:
       cluster.name: fusionauth
       bootstrap.memory_lock: "true"
@@ -62,6 +66,8 @@ services:
         condition: service_healthy
       fusionauth-es:
         condition: service_healthy
+    env_file:
+      - ../../global.env
     environment:
       DATABASE_ROOT_USERNAME: ${FUSIONAUTH_POSTGRES_ROOT_USERNAME:?FUSIONAUTH_POSTGRES_ROOT_USERNAME is not set}
       DATABASE_ROOT_PASSWORD: ${FUSIONAUTH_POSTGRES_ROOT_PASSWORD:?FUSIONAUTH_POSTGRES_ROOT_PASSWORD is not set}

@@ -5,6 +5,8 @@ services:
       REGISTRY_STORAGE_FILESYSTEM_ROOTDIRECTORY: /data
     volumes:
       - registry:/data
+    env_file:
+      - ../../global.env
 
 volumes:
   registry:

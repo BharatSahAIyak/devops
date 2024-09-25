@@ -4,6 +4,8 @@ services:
     restart: always
     volumes:
       - uptime:/app/data
+    env_file:
+      - ../../global.env
 
 volumes:
   uptime:

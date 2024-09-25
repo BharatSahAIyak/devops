@@ -6,6 +6,9 @@ services:
     volumes:
       - redis:/data
       - redis_conf:/usr/local/etc/redis/redis.conf
+    env_file:
+      - ../../global.env
+    
 
 volumes:
   redis:
