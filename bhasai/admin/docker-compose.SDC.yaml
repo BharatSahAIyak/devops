@@ -14,6 +14,8 @@ services:
         NEXT_PUBLIC_FLOWISE_URL: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/flowise
         NEXT_PUBLIC_AUTOTUNE_API_URL: ${DOMAIN_SCHEME:-https}://${DOMAIN_NAME}/autotune
         SERVE_PATH: "/admin"
+    env_file:
+      - ../../global.env
     environment:
       CONTEXT: ${CONTEXT}
       DESTINATION: ${DESTINATION}

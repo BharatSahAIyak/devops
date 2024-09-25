@@ -4,6 +4,8 @@ services:
     restart: always
     mem_limit: ${DEPLOYER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${DEPLOYER_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
     environment:
       PWA_REPO: ${DEPLOYER_PWA_REPO}
       VERCEL_CONFIG_JWKS_URI: ${VERCEL_CONFIG_JWKS_URI}

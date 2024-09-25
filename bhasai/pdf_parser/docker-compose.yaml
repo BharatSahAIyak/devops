@@ -12,6 +12,8 @@ services:
               count: 1
               capabilities: [gpu]
     restart: always
+    env_file:
+      - ../../global.env
     environment:
       DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
       ENABLE_TRANSLATE: ${ENABLE_TRANSLATE}
@@ -40,6 +42,8 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    env_file:
+      - ../../global.env
     environment:
       DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
       ENABLE_TRANSLATE: ${ENABLE_TRANSLATE}

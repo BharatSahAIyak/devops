@@ -17,6 +17,8 @@ services:
         NEXT_PUBLIC_TESTBED_URL: ${DOMAIN_SCHEME:-https}://testbed.${DOMAIN_NAME}
         NEXT_PUBLIC_NODEHUB_URL: ${DOMAIN_SCHEME:-https}://nodehub.${DOMAIN_NAME
         SERVE_PATH: ""
+    env_file:
+      - ../../global.env
     environment:
       CONTEXT: ${CONTEXT}
       DESTINATION: ${DESTINATION}

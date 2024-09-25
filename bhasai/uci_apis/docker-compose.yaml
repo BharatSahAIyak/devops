@@ -7,6 +7,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - ../../global.env
     environment:
       ADMIN_TOKEN: ${UCI_ADMIN_TOKEN}
       SECRETS_REGEX: ${SECRETS_REGEX}

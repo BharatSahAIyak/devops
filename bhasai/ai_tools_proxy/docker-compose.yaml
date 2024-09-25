@@ -4,6 +4,8 @@
       restart: always
       mem_limit: ${AI_TOOLS_PROXY_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
       cpus: ${AI_TOOLS_PROXY_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+      env_file:
+        - ../../global.env
       environment:
         DEFAULT_RETRY_COUNT: ${DEFAULT_RETRY_COUNT:-3}
         DEFAULT_TIMEOUT: ${DEFAULT_TIMEOUT:-2000}

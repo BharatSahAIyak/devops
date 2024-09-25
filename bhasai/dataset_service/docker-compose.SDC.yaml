@@ -4,4 +4,6 @@ services:
     restart: always
     mem_limit: ${DATASET_SERVICE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${DATASET_SERVICE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
     

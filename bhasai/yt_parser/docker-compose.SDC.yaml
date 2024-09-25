@@ -5,6 +5,8 @@ services:
     restart: always
     mem_limit: ${YT_PARSER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${YT_PARSER_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
     environment:
       ASR_SERVICE_PRIORITY: ${ASR_SERVICE_PRIORITY}
       DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
@@ -19,6 +21,8 @@ services:
     restart: always
     mem_limit: ${YT_PARSER_CELERY_WORKER_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${YT_PARSER_CELERY_WORKER_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
     environment:
       ASR_SERVICE_PRIORITY: ${ASR_SERVICE_PRIORITY}
       DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}

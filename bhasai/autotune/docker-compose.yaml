@@ -5,6 +5,8 @@
       mem_limit: ${AUTOTUNE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
       cpus: ${AUTOTUNE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
       command: bash -c "poetry install && python manage.py database && python manage.py runserver 0.0.0.0:8000"
+      env_file:
+        - ../../global.env
       environment:
         CELERY_MAX_RETRIES: ${CELERY_MAX_RETRIES:-3}
         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}
@@ -23,6 +25,8 @@
               - driver: nvidia
                 count: 1
                 capabilities: [gpu]
+      env_file:
+        - ../../global.env
       environment:
         CELERY_MAX_RETRIES: ${CELERY_MAX_RETRIES:-3}
         DJANGO_SECRET_KEY: ${DJANGO_SECRET_KEY}

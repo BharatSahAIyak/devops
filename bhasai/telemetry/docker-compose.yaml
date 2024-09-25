@@ -4,3 +4,5 @@ services:
     restart: always
     mem_limit: ${TELEMETRY_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${TELEMETRY_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env

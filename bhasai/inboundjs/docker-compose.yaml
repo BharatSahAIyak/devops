@@ -4,6 +4,8 @@ services:
     mem_limit: ${INBOUNDJS_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${INBOUNDJS_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
     restart: always
+    env_file:
+      - ../../global.env
     environment:
       UCI_API_TOKEN: ${UCI_ADMIN_TOKEN}
  

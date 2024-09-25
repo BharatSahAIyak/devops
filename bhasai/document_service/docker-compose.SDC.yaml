@@ -4,4 +4,6 @@ services:
     restart: always
     mem_limit: ${DOCUMENT_SERVICE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${DOCUMENT_SERVICE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
     
