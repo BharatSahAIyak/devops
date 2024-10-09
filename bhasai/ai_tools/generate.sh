@@ -69,6 +69,10 @@ for ((i=0; i<$count; i++)); do
     # Add service details to docker-compose.yaml
 
     printf "  ${serviceName}:\n    image: $containerImage\n    restart: always\n" >> $ComposeFile
+
+    # Add env_file section
+    printf "    env_file:\n      - ../../global.env\n" >> $ComposeFile
+    
         # Add environment variables to docker-compose.yaml
     if [[ ${#environment[@]} -gt 0 ]]; then
         printf "    environment:\n" >> $ComposeFile
