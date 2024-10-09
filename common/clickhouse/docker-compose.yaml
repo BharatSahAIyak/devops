@@ -10,9 +10,7 @@ services:
       - clickhouse:/var/lib/clickhouse
     depends_on:
       - clickhouse_keeper
-    env_file:
-      - ../../global.env
-      
+
   clickhouse_keeper:
     image: 'clickhouse/clickhouse-keeper:24.1.6'
     user: '101:101'
@@ -20,8 +18,7 @@ services:
     restart: always
     volumes:
       - ./keeper_config.xml:/etc/clickhouse-keeper/keeper_config.xml
-    env_file:
-      - ../../global.env
+
 
 volumes:
   clickhouse:

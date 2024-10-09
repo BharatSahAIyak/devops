@@ -7,8 +7,6 @@ services:
       context: .
       dockerfile: Dockerfile
     restart: always
-    env_file:
-      - ../../global.env
     environment:
       VAULT_USERNAME: ${ENVIRONMENT_USERNAME:?ENVIRONMENT_USERNAME is not set}
       VAULT_PASSWORD: ${ENVIRONMENT_PASSWORD:?ENVIRONMENT_PASSWORD is not set}

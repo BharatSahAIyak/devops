@@ -4,8 +4,6 @@ services:
     restart: always
     volumes:
       - rabbitmq:/var/lib/rabbitmq
-    env_file:
-      - ../../global.env
     environment:
       RABBITMQ_DEFAULT_USER: ${RABBITMQ_DEFAULT_USER:?RABBITMQ_DEFAULT_USER is not set}
       RABBITMQ_DEFAULT_PASS: ${RABBITMQ_DEFAULT_PASS:?RABBITMQ_DEFAULT_PASS is not set}

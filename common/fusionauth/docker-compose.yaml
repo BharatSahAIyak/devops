@@ -66,8 +66,6 @@ services:
         condition: service_healthy
       fusionauth-es:
         condition: service_healthy
-    env_file:
-      - ../../global.env
     environment:
       DATABASE_ROOT_USERNAME: ${FUSIONAUTH_POSTGRES_ROOT_USERNAME:?FUSIONAUTH_POSTGRES_ROOT_USERNAME is not set}
       DATABASE_ROOT_PASSWORD: ${FUSIONAUTH_POSTGRES_ROOT_PASSWORD:?FUSIONAUTH_POSTGRES_ROOT_PASSWORD is not set}

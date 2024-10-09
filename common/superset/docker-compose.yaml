@@ -52,8 +52,6 @@ services:
     image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/superset:${SUPERSET_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
     command: ["/app/docker/docker-init.sh"]
     user: "root"
-    env_file:
-      - ../../global.env
     <<: [*superset-environment ,*superset-depends-on, *superset-volumes]
 
 
@@ -62,8 +60,6 @@ services:
     command: ["/app/docker/docker-bootstrap.sh", "worker"]
     restart: always
     user: "root"
-    env_file:
-      - ../../global.env
     <<: [*superset-environment ,*superset-depends-on, *superset-volumes]
 
     healthcheck:
@@ -78,8 +74,6 @@ services:
     command: ["/app/docker/docker-bootstrap.sh", "beat"]
     restart: always
     user: "root"
-    env_file:
-      - ../../global.env
     <<: [*superset-environment ,*superset-depends-on, *superset-volumes]
 
 volumes:

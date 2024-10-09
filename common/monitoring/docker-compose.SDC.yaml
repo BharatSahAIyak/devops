@@ -13,8 +13,6 @@ services:
     volumes:
       - './loki/loki-config.yaml:/etc/loki/loki-config.yaml'
       - loki:/loki
-    env_file:
-      - ../../global.env
     environment:
       MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY:?MINIO_ACCESS_KEY is not set}
       MINIO_SECRET_KEY: ${MINIO_SECRET_KEY:?MINIO_SECRET_KEY is not set}
@@ -29,8 +27,6 @@ services:
       - '/var/lib/docker/containers:/var/lib/docker/containers:ro'
       - './loki/promtail-config.yaml:/etc/promtail/promtail-config.yaml'
     command: -config.file=/etc/promtail/promtail-config.yaml
-    env_file:
-      - ../../global.env
 
   grafana:
     image: grafana/grafana:10.3.4
@@ -41,8 +37,6 @@ services:
       - node_exporter
       - prometheus
       - cadvisor
-    env_file:
-      - ../../global.env
     environment:
       GF_SERVER_ROOT_URL: ${DOMAIN_SCHEME}://${DOMAIN_NAME}/grafana
       GRAFANA_DISCORD_WEBHOOK_URL: ${GRAFANA_DISCORD_WEBHOOK_URL:?GRAFANA_DISCORD_WEBHOOK_URL is not set}
@@ -67,8 +61,6 @@ services:
       - '--path.sysfs=/host/sys'
       - '--path.udev.data=/rootfs/run/udev/data'
       - '--collector.filesystem.mount-points-exclude=^/(sys|proc|dev|host|etc)($$|/)'
-    env_file:
-      - ../../global.env
 
   prometheus:
     image: prom/prometheus:v2.50.1
@@ -85,8 +77,6 @@ services:
       - '--web.enable-admin-api'
       - '--storage.tsdb.retention.time=7d'
       - '--storage.tsdb.retention.size=256GB'
-    env_file:
-      - ../../global.env
 
 
   cadvisor:
@@ -100,6 +90,4 @@ services:
     - /var/lib/docker/:/var/lib/docker:ro
     - /dev/disk/:/dev/disk:ro
     devices:
-      - /dev/kmsg:/dev/kmsg
-    env_file:
-      - ../../global.env  
+      - /dev/kmsg:/dev/kmsg  
