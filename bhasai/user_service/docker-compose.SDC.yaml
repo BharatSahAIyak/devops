@@ -12,7 +12,6 @@ services:
       - DEFAULT_OTP=${DEFAULT_OTP:-1234}
       - DEFAULT_OTP_USERS=${DEFAULT_OTP_USERS:-[]}
       - DEFAULT_USER_PASSWORD=${DEFAULT_USER_PASSWORD}
-      - DEFAULT_USER_PASSWORD="http://fusionauth:9011"
       - FUSIONAUTH_OLD_BASE_URL"="http://fusionauth:9011"
       - GUPSHUP_BASEURL="http://enterprise.smsgupshup.com/GatewayAPI/rest"
       - GUPSHUP_OTP_TEMPLATE=${GUPSHUP_OTP_TEMPLATE}
