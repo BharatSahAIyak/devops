@@ -1,0 +1,3 @@
+{$DOMAIN_SCHEME}://testbed.{$DOMAIN_NAME} {
+    reverse_proxy testbed:3000
+}

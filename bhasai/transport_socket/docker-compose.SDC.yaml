@@ -4,14 +4,8 @@ services:
     restart: always
     mem_limit: ${TRANSPORT_SOCKET_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${TRANSPORT_SOCKET_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
     environment:
       JWKS_URI: http://fusionauth:9011/.well-known/jwks.json
-      REDIS_URL: redis://redis:6379/1
-      ADAPTER_URL: http://inboundjs:3000/inbound/bot
-      DEBUG: ${TRANSPORT_SOCKET_DEBUG}
-      MESSAGE_RETRY_TIME: ${MESSAGE_RETRY_TIME}
       MAX_RETRIES: ${ACK_MAX_RETRIES}
-      SERVER_PORT: 3000
-      REDIS_DB: 1
-      REDIS_HOST: redis
-      REDIS_PORT: 6379

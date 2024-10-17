@@ -10,7 +10,7 @@ services:
       - clickhouse:/var/lib/clickhouse
     depends_on:
       - clickhouse_keeper
-      
+
   clickhouse_keeper:
     image: 'clickhouse/clickhouse-keeper:24.5.3.5'
     user: '101:101'
@@ -18,6 +18,7 @@ services:
     restart: always
     volumes:
       - ./keeper_config.xml:/etc/clickhouse-keeper/keeper_config.xml
+
 
 volumes:
   clickhouse:

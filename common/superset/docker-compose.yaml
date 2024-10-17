@@ -38,6 +38,8 @@ services:
     command: ["/app/docker/docker-bootstrap.sh", "app-gunicorn"]
     user: "root"
     restart: always
+    env_file:
+      - ../../global.env
     <<: [*superset-environment , *superset-volumes]
     depends_on:
       - db

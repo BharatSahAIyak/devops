@@ -1,1 +1,0 @@
-# This folder has fake yamls which allows env processor to generate env which are skipped 

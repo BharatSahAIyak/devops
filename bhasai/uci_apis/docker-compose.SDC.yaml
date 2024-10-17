@@ -7,14 +7,8 @@ services:
     depends_on:
       db:
         condition: service_healthy
+    env_file:
+      - ../../global.env
     environment:
-      UCI_API_PSQL_DB_URL: "postgres://${POSTGRES_USER}:${POSTGRES_PASSWORD}@db:5432/uci_apis"
-      REDIS_URL: redis://redis:6379/2
-      FUSIONAUTH_URL: http://fusionauth:9011
-      FUSIONAUTH_KEY: ${FUSIONAUTH_API_KEY}
       ADMIN_TOKEN: ${UCI_ADMIN_TOKEN}
-      VAULT_ADDR: http://vault:8200
-      VAULT_USERNAME: ${VAULT_USERNAME}
-      VAULT_PASSWORD: ${VAULT_PASSWORD}
-      AUTH_SERVICE_URL: http://auth_service:3000
-      UCI_CORE_BASE_URL: http://inboundjs:3000
+      SECRETS_REGEX: ${SECRETS_REGEX}

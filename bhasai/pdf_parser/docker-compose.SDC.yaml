@@ -12,31 +12,20 @@ services:
               count: 1
               capabilities: [gpu]
     restart: always
+    env_file:
+      - ../../global.env
     environment:
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
-      BHASHINI_API_KEY: ${BHASHINI_API_KEY}
-      TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
-      MINIO_BASE_URL: cdn-api.${DOMAIN_NAME}
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-      MINIO_BUCKET: pdf_parser
-      MINIO_SECURE_CONN: ${MINIO_SECURE_CONN:-True}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
       ENABLE_TRANSLATE: ${ENABLE_TRANSLATE}
       ENABLE_SUMMARIZE: ${ENABLE_SUMMARIZE}
       ENABLE_IMAGE_PARSING: ${ENABLE_IMAGE_PARSING}
-      SPLIT: ${SPLIT:-5}
-      PARALLEL_FACTOR: ${PARALLEL_FACTOR:-2}
-      REDIS_CONN: redis://redis:6379/0
-      TORCH_DEVICE: ${TORCH_DEVICE:-cuda}
-      CELERY_BROKER_URL: redis://redis:6379/0
-      CELERY_RESULT_BACKEND: redis://redis:6379/0
-      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
-      PDF_PARSER_MAX_RETRIES : ${PDF_PARSER_MAX_RETRIES:-3}
+      PARALLEL_FACTOR: ${PARALLEL_FACTOR}
+      PDF_PARSER_MAX_RETRIES : ${PDF_PARSER_MAX_RETRIES}
       PDF_PARSER_SECRET_KEY : ${PDF_PARSER_SECRET_KEY}
-      AZURE_TRANSLATE_KEY : ${AZURE_TRANSLATE_KEY}
-      TRANSLATION_SERVICES : ${TRANSLATION_SERVICES:-["azure", "bhasini"]}
-      WEBHOOK_URL: http://bff:3000/document/processed-webhook
-      FASTAPI_HOST: http://pdf-parser:8000
+      SPLIT: ${SPLIT}
+      TESSDATA_PREFIX: ${TESSDATA_PREFIX}
+      TORCH_DEVICE: ${TORCH_DEVICE}
+      TRANSLATION_SERVICES : ${TRANSLATION_SERVICES}
     depends_on:
       - redis
 
@@ -53,28 +42,19 @@ services:
             - driver: nvidia
               count: 1
               capabilities: [gpu]
+    env_file:
+      - ../../global.env
     environment:
-      CELERY_BROKER_URL: redis://redis:6379/0
-      CELERY_RESULT_BACKEND: redis://redis:6379/0
-      OPENAI_API_KEY: ${OPENAI_API_KEY}
-      BHASHINI_API_KEY: ${BHASHINI_API_KEY}
-      TESSDATA_PREFIX: "/usr/share/tesseract-ocr/5/tessdata" 
-      MINIO_BASE_URL: cdn-api.${DOMAIN_NAME}
-      MINIO_ACCESS_KEY: ${MINIO_ACCESS_KEY}
-      MINIO_SECRET_KEY: ${MINIO_SECRET_KEY}
-      MINIO_BUCKET: pdf_parser
-      MINIO_SECURE_CONN: ${MINIO_SECURE_CONN:-True}
+      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
       ENABLE_TRANSLATE: ${ENABLE_TRANSLATE}
       ENABLE_SUMMARIZE: ${ENABLE_SUMMARIZE}
       ENABLE_IMAGE_PARSING: ${ENABLE_IMAGE_PARSING}
-      SPLIT: ${SPLIT:-5}
-      PARALLEL_FACTOR: ${PARALLEL_FACTOR:-2}
-      REDIS_CONN: redis://redis:6379/0
-      TORCH_DEVICE: ${TORCH_DEVICE:-cuda}
-      DISCORD_WEBHOOK_URL: ${DISCORD_WEBHOOK_URL}
-      PDF_PARSER_MAX_RETRIES : ${PDF_PARSER_MAX_RETRIES:-3}
+      PARALLEL_FACTOR: ${PARALLEL_FACTOR}
+      PDF_PARSER_MAX_RETRIES : ${PDF_PARSER_MAX_RETRIES}
       PDF_PARSER_SECRET_KEY : ${PDF_PARSER_SECRET_KEY}
-      AZURE_TRANSLATE_KEY : ${AZURE_TRANSLATE_KEY}
-      TRANSLATION_SERVICES : ${TRANSLATION_SERVICES:-["azure", "bhasini"]}
+      SPLIT: ${SPLIT}
+      TESSDATA_PREFIX: ${TESSDATA_PREFIX}
+      TORCH_DEVICE: ${TORCH_DEVICE}
+      TRANSLATION_SERVICES : ${TRANSLATION_SERVICES}
     depends_on:
       - redis

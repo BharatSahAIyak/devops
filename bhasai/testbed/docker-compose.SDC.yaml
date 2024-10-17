@@ -1,0 +1,11 @@
+services:
+  testbed:
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/testbed:${TESTBED_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    restart: always
+    mem_limit: ${TESTBED_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
+    cpus: ${TESTBED_SERVICE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
+    environment:
+      MAX_FILE_SIZE_IN_MB: ${MAX_FILE_SIZE_IN_MB:-10}
+      MESSAGE_CONCURRENCY: ${MESSAGE_CONCURRENCY:-5}

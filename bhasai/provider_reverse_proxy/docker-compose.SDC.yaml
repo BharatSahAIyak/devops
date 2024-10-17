@@ -1,0 +1,8 @@
+services:
+  provider_reverse_proxy:
+    image: ghcr.io/vistaar-org/provider-reverse-proxy:main
+    restart: always
+    mem_limit: ${PROVIDER_REVERSE_PROXY_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
+    cpus: ${ROVIDER_REVERSE_PROXY_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env

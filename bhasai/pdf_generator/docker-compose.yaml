@@ -1,0 +1,8 @@
+services:
+  pdf_generator:
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/pdf-generator:${PDF_GENERATOR_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    restart: always
+    mem_limit: ${PDF_GENERATOR_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
+    cpus: ${PDF_GENERATOR_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env

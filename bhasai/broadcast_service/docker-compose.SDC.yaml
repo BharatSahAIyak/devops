@@ -1,0 +1,15 @@
+services:
+  broadcast_service:
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org}/broadcast-service:${BROADCAST_SERVICE_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    restart: always
+    mem_limit: ${BROADCAST_SERVICE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
+    cpus: ${BROADCAST_SERVICE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
+    env_file:
+      - ../../global.env
+    environment:
+      CLIENT_CERT_URL: ${CLIENT_CERT_URL}
+      CLIENT_EMAIL: ${CLIENT_EMAIL}
+      CLIENT_ID: ${CLIENT_ID}
+      PRIVATE_KEY: ${PRIVATE_KEY}
+      PRIVATE_KEY_ID: ${PRIVATE_KEY_ID}
+      PROJECT_ID: ${PROJECT_ID}

@@ -7,6 +7,8 @@ services:
     restart: always
     volumes:
       - minio:/data
+    env_file:
+      - ../../global.env
     environment:
       MINIO_ROOT_USER: ${MINIO_ROOT_USER:?MINIO_ROOT_USER is not set}
       MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:?MINIO_ROOT_PASSWORD is not set}
