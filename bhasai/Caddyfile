@@ -16,7 +16,6 @@ import ./user_management_service/Caddyfile
 import ./yt_parser/Caddyfile 
 import ./ai_tools/Caddyfile
 import ./pdf_generator/Caddyfile
-import ./provider_reverse_proxy/Caddyfile
 import ./testbed/Caddyfile
 import ./provider_reverse_proxy/Caddyfile
 import ./broadcast_service/Caddyfile
