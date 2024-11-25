@@ -1,0 +1,7 @@
+import ./app/Caddyfile
+import ./bff/Caddyfile
+import ./proxy_whatsapp/Caddyfile
+import ./lipsync/Caddyfile
+import ./voice_cloning/Caddyfile
+import ./ai_tools/Caddyfile
+import ./lang-detection/Caddyfile

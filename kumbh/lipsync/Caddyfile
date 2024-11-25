@@ -1,5 +1,5 @@
-{$DOMAIN_SCHEME}://inboundjs.{$DOMAIN_NAME} {
-    reverse_proxy inboundjs:3000 {
+{$DOMAIN_SCHEME}://lipsync.{$DOMAIN_NAME} {
+    reverse_proxy lipsync:8000 {
         header_down Strict-Transport-Security "max-age=31536000;"
         header_down x-xss-protection "1; mode=block"
         header_down x-frame-options "SAMEORIGIN"

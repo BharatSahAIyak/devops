@@ -1,0 +1,8 @@
+include:
+  - ./app/docker-compose.yaml
+  - ./bff/docker-compose.yaml
+  - ./proxy_whatsapp/docker-compose.yaml
+  - ./lipsync/docker-compose.yaml
+  - ./voice_cloning/docker-compose.yaml
+  - ./ai_tools/docker-compose.yaml
+  - ./lang-detection/docker-compose.yaml

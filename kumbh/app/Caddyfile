@@ -1,5 +1,5 @@
-{$DOMAIN_SCHEME}://inboundjs.{$DOMAIN_NAME} {
-    reverse_proxy inboundjs:3000 {
+{$DOMAIN_SCHEME}://app.{$DOMAIN_NAME} {
+    reverse_proxy app:3000 {
         header_down Strict-Transport-Security "max-age=31536000;"
         header_down x-xss-protection "1; mode=block"
         header_down x-frame-options "SAMEORIGIN"
@@ -9,6 +9,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "*"
+        header_down Access-Control-Allow-Origin "https://app.dev.ks.samagra.io"
     }
 }

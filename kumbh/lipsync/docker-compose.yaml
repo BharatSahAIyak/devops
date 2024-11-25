@@ -1,0 +1,18 @@
+services:
+  lipsync:
+    image: ${DOCKER_REGISTRY_URL:-ghcr.io}/${org_KS_CR}/lipsync:${LIPSYNC_IMAGE_TAG:-${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}
+    restart: always
+    mem_limit: ${LIPSYNC_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-8g}}
+    cpus: ${LIPSYNC_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-6}}
+    env_file:
+      - ../../global.env
+    environment:
+      VOICE_CLONING_API: https://voice-clone.dev.ks.samagra.io/api/v1/audio/synthesize
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]

@@ -1,12 +1,14 @@
 services:
   redis:
-    image: redis:latest
+    image: docker.dragonflydb.io/dragonflydb/dragonfly:latest
     restart: always
-    command: [ 'redis-server', '--appendonly', 'yes' ]
+    #command: ['bash', '-c', 'sleep 100000000']
+    command: ["--cache_mode=true", "--default_lua_flags=allow-undeclared-keys"]
+    ports:
+      - 6379:6379
     volumes:
       - redis:/data
       - redis_conf:/usr/local/etc/redis/redis.conf
-    
 
 volumes:
   redis:

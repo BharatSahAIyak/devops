@@ -1,0 +1,4 @@
+services:
+  lang_detection:
+    build:
+      context: https://github.com/ChakshuGautam/ts-language-detection.git#${LANG_DETECTION_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH:?DEFAULT_GITHUB_BRANCH is not set}}

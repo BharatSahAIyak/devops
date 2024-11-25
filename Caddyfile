@@ -6,4 +6,6 @@ import ./common/fusionauth/Caddyfile
 # import ./common/registry/Caddyfile
 import ./common/uptime/Caddyfile
 import ./bhasai/Caddyfile
+import ./kumbh/Caddyfile
 import ./common/superset/Caddyfile
+import ./common/rabbitmq/Caddyfile

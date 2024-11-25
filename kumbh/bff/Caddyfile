@@ -1,26 +1,26 @@
-{$DOMAIN_SCHEME}://user-service.{$DOMAIN_NAME} {
+{$DOMAIN_SCHEME}://bff.{$DOMAIN_NAME} {
     @localOrigin header Origin http://localhost:3000
     @localTestOrigin header Origin http://localhost
     @appOrigin header Origin https://app.dev.ks.samagra.io
 
     handle @localOrigin {
-        reverse_proxy user_service:3000 {
+        reverse_proxy bff:3000 {
             header_down Access-Control-Allow-Origin "http://localhost:3000"
         }
     }
 
     handle @localTestOrigin {
-        reverse_proxy user_service:3000 {
+        reverse_proxy bff:3000 {
             header_down Access-Control-Allow-Origin "http://localhost"
         }
     }
 
     handle @appOrigin {
-        reverse_proxy user_service:3000 {
+        reverse_proxy bff:3000 {
             header_down Access-Control-Allow-Origin "https://app.dev.ks.samagra.io"
         }
     }
-    reverse_proxy user_service:3000 {
+    reverse_proxy bff:3000 {
         header_down Strict-Transport-Security "max-age=31536000;"
         header_down x-xss-protection "1; mode=block"
         header_down x-frame-options "SAMEORIGIN"
@@ -30,6 +30,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://user-service.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://bff.dev.ks.samagra.io"
     }
 }

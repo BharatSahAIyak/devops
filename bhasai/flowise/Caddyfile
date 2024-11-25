@@ -1,3 +1,21 @@
 {$DOMAIN_SCHEME}://flowise.{$DOMAIN_NAME} {
-    reverse_proxy flowise:3000
+    @adminOrigin header Origin https://admin.dev.ks.samagra.io
+
+    handle @adminOrigin {
+        reverse_proxy flowise:3000 {
+            header_down Access-Control-Allow-Origin "https://admin.dev.ks.samagra.io"
+        }
+    }
+
+    reverse_proxy flowise:3000 {
+        header_down Strict-Transport-Security "max-age=31536000;"
+        header_down x-xss-protection "1; mode=block"
+        header_down X-Content-Type-Options "nosniff"
+        header_down Cache-Control "max-age=2628000, public"
+        header_down Referrer-Policy "no-referrer-when-downgrade"
+        header_down Content-Security-Policy "frame-ancestors self https://admin.dev.ks.samagra.io; upgrade-insecure-requests;"
+        header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
+        header_down Access-Control-Allow-Methods "GET, POST, PATCH"
+        header_down Access-Control-Allow-Origin "https//flowise.ks.samagra.io"
+    }
 }

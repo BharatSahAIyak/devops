@@ -13,7 +13,7 @@ set -e
 
 source .env
 
-required_env=("org" "DOCKER_REGISTRY_URL" "AI_SERVICES")
+required_env=("org_KS_CR" "DOCKER_REGISTRY_URL" "AI_SERVICES_KS")
 
 # Check if required environment variables are set
 for var in "${required_env[@]}"; do
@@ -23,15 +23,15 @@ for var in "${required_env[@]}"; do
     fi
 done
 
-directory="bhasai/ai_tools"
+directory="kumbh/ai_tools"
 
-GITHUB_REPOSITORY_URL="${org}/ai-tools"
+GITHUB_REPOSITORY_URL="${org_KS_CR}/ai-tools"
 GITHUB_BRANCH="${AI_TOOLS_GITHUB_BRANCH:-${DEFAULT_GITHUB_BRANCH?DEFAULT_GITHUB_BRANCH is not set}}"
 
 command -v jq >/dev/null || { echo "Error: jq is required but not found. Please install it."; exit 1; }
 
 # Get the number of models from the config.json file
-count=$(echo "$AI_SERVICES" | jq -r '.models | length')
+count=$(echo "$AI_SERVICES_KS" | jq -r '.models | length')
 ComposeFile="${directory}/docker-compose.yaml"
 Caddyfile="${directory}/Caddyfile"
 CaddyfileSDC="${directory}/Caddyfile.SDC"
@@ -39,46 +39,36 @@ CaddyfileSDC="${directory}/Caddyfile.SDC"
 # Generate docker-compose.yaml file
 printf "services:\n" > $ComposeFile
 
-printf '{$DOMAIN_SCHEME}://ai-tools.{$DOMAIN_NAME} {' > $Caddyfile
+printf '{$DOMAIN_SCHEME}://ks-ai-tools.{$DOMAIN_NAME} {' > $Caddyfile
 printf "" > $CaddyfileSDC
 
 # Loop through each model
 for ((i=0; i<$count; i++)); do
     # Get model details from config.json
-    serviceName=$(echo "$AI_SERVICES" | jq -r ".models[$i].serviceName")
-    apiBasePath=$(echo "$AI_SERVICES" | jq -r ".models[$i].apiBasePath")
-    containerPort=$(echo "$AI_SERVICES" | jq -r ".models[$i].containerPort")
-    gpu=$(echo "$AI_SERVICES" | jq ".models[$i].gpu")
+    serviceName=$(echo "$AI_SERVICES_KS" | jq -r ".models[$i].serviceName")
+    apiBasePath=$(echo "$AI_SERVICES_KS" | jq -r ".models[$i].apiBasePath")
+    containerPort=$(echo "$AI_SERVICES_KS" | jq -r ".models[$i].containerPort")
+    gpu=$(echo "$AI_SERVICES_KS" | jq ".models[$i].gpu")
 
-    containerImage="${DOCKER_REGISTRY_URL}/${GITHUB_REPOSITORY_URL}/${serviceName}:\${AI_TOOLS_IMAGE_TAG:-\${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}"
+    containerImage="${DOCKER_REGISTRY_URL}/${GITHUB_REPOSITORY_URL}/${serviceName}:\${KS_AI_TOOLS_IMAGE_TAG:-\${DEFAULT_IMAGE_TAG:?DEFAULT_IMAGE_TAG is not set}}"
 
     echo "handle_path /ai-tools/${apiBasePath}* {
-    reverse_proxy ${serviceName}:${containerPort}
+    reverse_proxy ks_${serviceName}:${containerPort}
 }" >> $CaddyfileSDC
 
     echo "
     handle_path /${apiBasePath}* {
-        reverse_proxy ${serviceName}:${containerPort} {
-            header_down Strict-Transport-Security \"max-age=31536000;\"
-            header_down x-xss-protection \"1; mode=block\"
-            header_down x-frame-options \"SAMEORIGIN\"
-            header_down X-Content-Type-Options \"nosniff\"
-            header_down Cache-Control \"max-age=2628000, public\"
-            header_down Referrer-Policy \"no-referrer-when-downgrade\"
-            header_down Content-Security-Policy \"upgrade-insecure-requests\"
-            header_down Permissions-Policy \"geolocation=(), midi=(), notifications=()\"
-            header_down Access-Control-Allow-Origin \"*\"
-        }
+        reverse_proxy ks_${serviceName}:${containerPort}
     }
     " >> $Caddyfile
 
 
     # Get environment variables for the model
-    environment=($(echo "$AI_SERVICES" | jq -r ".models[$i].environment | keys[]"))
+    environment=($(echo "$AI_SERVICES_KS" | jq -r ".models[$i].environment | keys[]"))
     
     # Add service details to docker-compose.yaml
 
-    printf "  ${serviceName}:\n    image: $containerImage\n    restart: always\n" >> $ComposeFile
+    printf "  ks_${serviceName}:\n    image: $containerImage\n    restart: always\n" >> $ComposeFile
 
     # Add env_file section
     printf "    env_file:\n      - ../../global.env\n" >> $ComposeFile

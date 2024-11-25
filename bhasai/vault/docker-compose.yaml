@@ -6,6 +6,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - 8200:8200
     restart: always
     env_file:
       - ../../global.env

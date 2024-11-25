@@ -1,6 +1,6 @@
 services:
   user_service:
-    image: samagragovernance/esamwad-user-service:latest 
+    image: ghcr.io/samagra-development/user-service:master 
     restart: always
     mem_limit: ${USER_SERVICE_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-256m}}
     cpus: ${USER_SERVICE_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-0.5}}
@@ -14,8 +14,10 @@ services:
       - DEFAULT_USER_PASSWORD=${DEFAULT_USER_PASSWORD}
       - FUSIONAUTH_OLD_BASE_URL"="http://fusionauth:9011"
       - GUPSHUP_BASEURL=http://enterprise.smsgupshup.com/GatewayAPI/rest
+      - REDIS_URL=redis://redis:6379
+      - JWKS_URI=http://fusionauth:9011/.well-known/jwks.json
       - GUPSHUP_OTP_TEMPLATE=${GUPSHUP_OTP_TEMPLATE}
       - GUPSHUP_PASSWORD=${GUPSHUP_PASSWORD}
       - GUPSHUP_USERNAME=${GUPSHUP_USERNAME}
       - OTP_EXPIRY=${OTP_EXPIRY:-30}
-      - APP_${FUSIONAUTH_APP_ID}="{"host":"http://fusionauth:9011","salt":"${FUSIONAUTH_SALT}","apiKey":"${FUSIONAUTH_API_KEY}","encryption":{"enabled":false}}"
+      - APP_8fc16e9a_2c32_48ee_9b41_271ce60954d2={"host":"http://fusionauth:9011","salt":"4f8aPNuEhtBGahamlWqpdH7OHwEHUy","apiKey":"WxXmeOSy3WhOmxlye0kmY2UFYleMKm","encryption":{"enabled":false}}

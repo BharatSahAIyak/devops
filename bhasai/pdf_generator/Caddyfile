@@ -1,3 +1,14 @@
 {$DOMAIN_SCHEME}://pdf-generator.{$DOMAIN_NAME} {
-    reverse_proxy pdf_generator:3000
+    reverse_proxy pdf_generator:3000 {
+        header_down Strict-Transport-Security "max-age=31536000;"
+        header_down x-xss-protection "1; mode=block"
+        header_down x-frame-options "SAMEORIGIN"
+        header_down X-Content-Type-Options "nosniff"
+        header_down Cache-Control "max-age=2628000, public"
+        header_down Referrer-Policy "no-referrer-when-downgrade"
+        header_down Content-Security-Policy "upgrade-insecure-requests"
+        header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
+        header_down Access-Control-Allow-Methods "GET, POST, PATCH"
+        header_down Access-Control-Allow-Origin "https://pdf-generator.dev.ks.samagra.io"
+    }
 }

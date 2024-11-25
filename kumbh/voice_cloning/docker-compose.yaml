@@ -1,0 +1,17 @@
+services:
+  voice_cloning:
+    image: localhost:5000/voice_cloning:latest
+    restart: always
+    mem_limit: ${VOICE_CLONING_MEM_LIMIT:-${DEFAULT_MEM_LIMIT:-16g}}
+    cpus: ${VOICE_CLONING_CPU_LIMIT:-${DEFAULT_CPU_LIMIT:-4}}
+    env_file:
+      - ../../global.env
+    environment:
+      NVIDIA_VISIBLE_DEVICES: ${NVIDIA_VISIBLE_DEVICES}
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: 1
+              capabilities: [gpu]
