@@ -1,17 +1,9 @@
-# (cors) {
-# 	# @origin header Origin {args[0]}
-# 	# header @origin Access-Control-Allow-Origin "{args[0]}"
-#     # header_regexp Origin ^https?://([a-zA-Z0-9-]+\.)*vercel\.app$|^https?://localhost(:[0-9]+)?$|^https?://auth-service.dev.ks.samagra.io$
-#     # @Origin {
-#     #     header_regexp Origin ^https?://([a-zA-Z0-9-]+\.)*vercel\.app$|^https?://localhost(:[0-9]+)?$|^https?://auth-service.dev.ks.samagra.io$
-#     # }
-# }
 {$DOMAIN_SCHEME}://auth-service.{$DOMAIN_NAME} {
-    @adminOrigin header Origin https://admin.dev.ks.samagra.io
+    @adminOrigin header Origin https://admin.uat.kumbhsahaiyak.xyz
 
     handle @adminOrigin {
         reverse_proxy auth_service:3000 {
-            header_down Access-Control-Allow-Origin "https://admin.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://admin.uat.kumbhsahaiyak.xyz"
         }
     }
     reverse_proxy auth_service:3000 {
@@ -24,6 +16,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://auth-service.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://auth-service.uat.kumbhsahaiyak.xyz"
     }
 }

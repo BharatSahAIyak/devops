@@ -1,23 +1,9 @@
 {$DOMAIN_SCHEME}://user-service.{$DOMAIN_NAME} {
-    @localOrigin header Origin http://localhost:3000
-    @localTestOrigin header Origin http://localhost
-    @appOrigin header Origin https://app.dev.ks.samagra.io
-
-    handle @localOrigin {
-        reverse_proxy user_service:3000 {
-            header_down Access-Control-Allow-Origin "http://localhost:3000"
-        }
-    }
-
-    handle @localTestOrigin {
-        reverse_proxy user_service:3000 {
-            header_down Access-Control-Allow-Origin "http://localhost"
-        }
-    }
+    @appOrigin header Origin https://app.uat.kumbhsahaiyak.xyz
 
     handle @appOrigin {
         reverse_proxy user_service:3000 {
-            header_down Access-Control-Allow-Origin "https://app.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://app.uat.kumbhsahaiyak.xyz"
         }
     }
     reverse_proxy user_service:3000 {
@@ -30,6 +16,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://user-service.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://user-service.uat.kumbhsahaiyak.xyz"
     }
 }

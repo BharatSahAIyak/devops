@@ -1,47 +1,23 @@
-# {$DOMAIN_SCHEME}://transport-socket.{$DOMAIN_NAME} {
-#     reverse_proxy transport_socket:3000 {
-#         header_down Strict-Transport-Security "max-age=31536000;"
-#         header_down x-xss-protection "1; mode=block"
-#         header_down x-frame-options "SAMEORIGIN"
-#         header_down X-Content-Type-Options "nosniff"
-#         header_down Cache-Control "max-age=2628000, public"
-#         header_down Referrer-Policy "no-referrer-when-downgrade"
-#         header_down Content-Security-Policy "upgrade-insecure-requests"
-#         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
-#         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-#         header_down Access-Control-Allow-Origin "https://*.dev.ks.samagra.io"
-#     }
-# }
-
-
-
 {$DOMAIN_SCHEME}://transport-socket.{$DOMAIN_NAME} {
-    @localOrigin header Origin http://localhost:3000
-    @appOrigin header Origin https://app.dev.ks.samagra.io
-    @flowiseOrigin header Origin https://flowise.dev.ks.samagra.io
-    @adminOrigin header Origin https://admin.dev.ks.samagra.io
-
-    handle @localOrigin {
-        reverse_proxy transport_socket:3000 {
-            header_down Access-Control-Allow-Origin "http://localhost:3000"
-        }
-    }
+    @appOrigin header Origin https://app.uat.kumbhsahaiyak.xyz
+    @flowiseOrigin header Origin https://flowise.uat.kumbhsahaiyak.xyz
+    @adminOrigin header Origin https://admin.uat.kumbhsahaiyak.xyz
 
     handle @appOrigin {
         reverse_proxy transport_socket:3000 {
-            header_down Access-Control-Allow-Origin "https://app.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://app.uat.kumbhsahaiyak.xyz"
         }
     }
 
     handle @flowiseOrigin {
         reverse_proxy transport_socket:3000 {
-            header_down Access-Control-Allow-Origin "https://flowise.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://flowise.uat.kumbhsahaiyak.xyz"
         }
     }
 
     handle @adminOrigin {
         reverse_proxy transport_socket:3000 {
-            header_down Access-Control-Allow-Origin "https://admin.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://admin.uat.kumbhsahaiyak.xyz"
         }
     }
 
@@ -55,6 +31,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://transport-socket.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://transport-socket.uat.kumbhsahaiyak.xyz"
     }
 }

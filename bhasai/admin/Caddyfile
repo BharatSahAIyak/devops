@@ -5,9 +5,9 @@
         header_down X-Content-Type-Options "nosniff"
         header_down Cache-Control "max-age=2628000, public"
         header_down Referrer-Policy "no-referrer-when-downgrade"
-        header_down Content-Security-Policy "frame-ancestors self https://flowise.dev.ks.samagra.io; upgrade-insecure-requests;"
+        header_down Content-Security-Policy "frame-ancestors self https://flowise.uat.kumbhsahaiyak.xyz; upgrade-insecure-requests;"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://admin.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://admin.uat.kumbhsahaiyak.xyz"
     }
 }

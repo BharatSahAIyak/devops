@@ -1,23 +1,9 @@
 {$DOMAIN_SCHEME}://bff.{$DOMAIN_NAME} {
-    @localOrigin header Origin http://localhost:3000
-    @localTestOrigin header Origin http://localhost
-    @appOrigin header Origin https://app.dev.ks.samagra.io
-
-    handle @localOrigin {
-        reverse_proxy bff:3000 {
-            header_down Access-Control-Allow-Origin "http://localhost:3000"
-        }
-    }
-
-    handle @localTestOrigin {
-        reverse_proxy bff:3000 {
-            header_down Access-Control-Allow-Origin "http://localhost"
-        }
-    }
+    @appOrigin header Origin https://app.uat.kumbhsahaiyak.xyz
 
     handle @appOrigin {
         reverse_proxy bff:3000 {
-            header_down Access-Control-Allow-Origin "https://app.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://app.uat.kumbhsahaiyak.xyz"
         }
     }
     reverse_proxy bff:3000 {
@@ -30,6 +16,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://bff.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://bff.uat.kumbhsahaiyak.xyz"
     }
 }

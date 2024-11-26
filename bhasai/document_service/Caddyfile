@@ -9,7 +9,7 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://document-service.dev.ks.samagra.io"    
+        header_down Access-Control-Allow-Origin "https://document-service.uat.kumbhsahaiyak.xyz"    
     }
 }
 

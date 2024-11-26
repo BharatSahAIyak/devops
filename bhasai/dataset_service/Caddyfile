@@ -1,9 +1,9 @@
 {$DOMAIN_SCHEME}://dataset-service.{$DOMAIN_NAME} {
-    @adminOrigin header Origin https://admin.dev.ks.samagra.io
+    @adminOrigin header Origin https://admin.uat.kumbhsahaiyak.xyz
 
     handle @adminOrigin {
         reverse_proxy dataset_service:3000 {
-            header_down Access-Control-Allow-Origin "https://admin.dev.ks.samagra.io"
+            header_down Access-Control-Allow-Origin "https://admin.uat.kumbhsahaiyak.xyz"
         }
     }
     reverse_proxy dataset_service:3000 {
@@ -16,6 +16,6 @@
         header_down Content-Security-Policy "upgrade-insecure-requests"
         header_down Permissions-Policy "geolocation=(), midi=(), notifications=()"
         header_down Access-Control-Allow-Methods "GET, POST, PATCH"
-        header_down Access-Control-Allow-Origin "https://dataset-service.dev.ks.samagra.io"
+        header_down Access-Control-Allow-Origin "https://dataset-service.uat.kumbhsahaiyak.xyz"
     }
 }
