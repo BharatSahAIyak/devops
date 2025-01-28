@@ -7,6 +7,10 @@ services:
         REACT_APP_SOCKET_URL: ${DOMAIN_SCHEME:-https}://transport-socket.${DOMAIN_NAME}
         REACT_APP_REGISTRY_BASE_URL: ${DOMAIN_SCHEME:-https}://nodehub.${DOMAIN_NAME}
         SERVE_PATH: ""
+      environmet:
+        REACT_APP_UCI_API: ${DOMAIN_SCHEME:-https}://uci-apis.${DOMAIN_NAME}
+        REACT_APP_SOCKET_URL: ${DOMAIN_SCHEME:-https}://transport-socket.${DOMAIN_NAME}
+        REACT_APP_REGISTRY_BASE_URL: ${DOMAIN_SCHEME:-https}://nodehub.${DOMAIN_NAME}
     env_file:
       - ../../global.env
     restart: always
